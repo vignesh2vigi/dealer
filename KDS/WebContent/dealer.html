@@ -1,0 +1,57 @@
+<br>
+<p>Search:</p><input type="text" ng-model="searchTxt" placeholder="search">
+<br><br>
+<div id="exportable">
+<table class="table table-striped">
+<thead>
+<tr>
+<th>update</th>
+<th>Dealer name</th>
+<th>Mobile No</th>
+<th>Email</th>
+<th>Password</th>
+<th>Shop name</th>
+<th>Type</th>
+<th>Pan</th>
+<th>Aadhar</th>
+<th>Area</th>
+<th>City</th>
+<th>State</th>
+<th>Pin code</th>
+<th>Sign</th>
+<th>Shop image</th>
+<th>GEO Address</th>
+
+</tr>
+</thead>
+<tbody >
+<tr ng-repeat="loan in deal | filter:searchTxt" >
+<td><a href="#!approve/{{loan.dealer_name}}">Approve</a>
+<a href="#!reject/{{loan.dealer_name}}">Reject</a>
+</td>
+
+<td>{{loan.dealer_name}}</td>
+<td>{{loan.dealer_mobile}}</td>
+<td>{{loan.dealer_email}}</td>
+<td>{{loan.dealer_pwd}}</td>
+<td>{{loan.dealer_shopname}}</td>
+<td>{{loan.dealer_type}}</td>
+<td>{{loan.dealer_pan}}</td>
+<td>{{loan.dealer_aadhaar}}</td>
+<td>{{loan.dealer_area}}</td>
+<td>{{loan.dealer_city}}</td>
+<td>{{loan.dealer_state}}</td>
+<td>{{loan.dealer_pincode}}</td>
+<td>{{loan.dealer_sign}}</td>
+<td>{{loan.dealer_shopimages}}</td>
+<td>{{loan.dealer_geo_address}}</td>
+
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- <div><form >
+<input type="text" ng-model="loan.dealer_name">
+<input type="number" ng-model="loan.loanlimit" placeholder="Loanlimit">
+<input type="submit" class="btn btn-default" value="submit" ng-click="loanlimit()"></form></div> -->
