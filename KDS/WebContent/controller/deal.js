@@ -40,6 +40,33 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 			}
 		})
 	}
+	function list() {
+		DealerService.list().then(function(response) {
+			console.log(response.data)
+			console.log(response.status)
+			$scope.ape = response.data
+		}, function(response) {
+			console.log(response.status)
+			if(response.status==401){
+	    	
+				$location.path('/login')
+			}
+		})
+	}
+	function deallist() {
+		DealerService.deallist().then(function(response) {
+			console.log(response.data)
+			console.log(response.status)
+			$scope.rjt = response.data
+		}, function(response) {
+			console.log(response.status)
+			if(response.status==401){
+	    	
+				$location.path('/login')
+			}
+		})
+	}
+	
 	$scope.loanlimit=function(loan){	
 		console.log("hi===="+$scope.loan)
 		DealerService.loanlimit($scope.loan).then(function(response){
@@ -62,4 +89,6 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 	
 	
 	getlist()
+	list()
+	deallist()
 })

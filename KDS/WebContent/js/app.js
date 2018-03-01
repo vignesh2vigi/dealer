@@ -14,10 +14,18 @@ app.config(function($routeProvider) {
         templateUrl : 'dealer.html',
         controller :'DealerController'	
         })
-        .when('/approve/:dealer_name', {
+        .when("/approvelist", {
+        templateUrl : 'approvelist.html',
+        controller :'DealerController'	
+        })
+        .when("/rejectlist", {
+        templateUrl : 'rejectlist.html',
+        controller :'DealerController'	
+        })
+        .when('/approve/:dealer_mobile', {
 		templateUrl : 'approve.html', controller:'DealerAppController'
 	})
-        .when('/reject/:dealer_name', {
+        .when('/reject/:dealer_mobile', {
 		templateUrl : 'rej.html', controller:'DealerAppController'
 	})
         

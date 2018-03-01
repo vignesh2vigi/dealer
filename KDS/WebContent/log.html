@@ -6,17 +6,17 @@
         
         <form name="theForm">
           <div class="form-group">
-            <input class="form-control" ng-model="log.dealer_name" placeholder="Dealer name" type="text" name="username" required>
-            <span class="error" ng-show="(theForm.$dirty||submitted) && theForm.username.$error.required">user name is required</span>
+            <input class="form-control" ng-model="log.admin_id" placeholder="Dealer Admin Id" type="text" name="username" required>
+            <span class="error" ng-show="(theForm.$dirty||submitted) && theForm.username.$error.required">KuwyID is required</span>
           </div>
           <div class="form-group">
-            <input class="form-control" ng-model="log.dealer_pwd"  placeholder="Password" type="password" name="password" required>
+            <input class="form-control" ng-model="log.admin_password"  placeholder="Password" type="password" name="password" required>
              <span class="error" ng-show="(theForm.$dirty||submitted) && theForm.password.$error.required">Password is required</span>
           </div>
 		  <div class="form-group">
 		  <button type="submit" ng-click="login()" class="submit-btn">Submit</button>
 		  </div>
-		   <span style='color:red'>{{error.message}}</span>
+		  
         </form>
       </div>
     </div>

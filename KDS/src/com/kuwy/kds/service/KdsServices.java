@@ -12,7 +12,9 @@ public interface KdsServices {
 	public KdsModel dealerlist ();
 	public KdsModel delete(String dealer_name);
 	public List<KdsModel> Dealerlist();
+	public List<KdsModel> ave();
+	public List<KdsModel> rjt();
 	public KdsModel log(KdsModel log);
-	public KdsModel ape(String dealer_name);
+	public KdsModel ape(String dealer_mobile);
 	public KdsModel reject(KdsModel reject);
 }

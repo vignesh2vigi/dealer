@@ -189,21 +189,23 @@ th {
 }</style>
     </head>
     <body ng-app="app">
-    <nav class="navbar navbar-inverse" ng-show="currentDealer.dealer_name" >
+    <nav class="navbar navbar-inverse" ng-show="currentDealer.admin_username" >
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="">DEALER ADMIN PORTAL</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="" ng-show="currentDealer.dealer_name"><img src="images/logo-icon.png" class="img-responsive" height="30px" width="30px"alt="Upload" ></a></li>
+        <li><a href="" ng-show="currentDealer.admin_username"><img src="images/logo-icon.png" class="img-responsive" height="30px" width="30px"alt="Upload" ></a></li>
        <li ><a href="#!/dealerlist">dealerlist</a></li> 
-      <li ><a href="#!/logout"  ng-show="currentDealer.dealer_name" ng-click="logout()">LOGOUT</a></li>
-      <li class="active"><a href="" ng-show="currentDealer.dealer_name">WELCOME:{{currentDealer.dealer_name | uppercase}}</a></li>
+        <li ><a href="#!/approvelist">Approved list</a></li> 
+         <li ><a href="#!/rejectlist">Rejected list</a></li> 
+      <li ><a href="#!/logout"  ng-show="currentDealer.admin_username" ng-click="logout()">LOGOUT</a></li>
+      <li class="active"><a href="" ng-show="currentDealer.admin_username">WELCOME:{{currentDealer.admin_username | uppercase}}</a></li>
     </ul>
   </div> 
 </nav>
 <div ng-view></div>
-<div class="footer navbar-fixed-bottom" ng-show="currentDealer.dealer_name">
+<div class="footer navbar-fixed-bottom" ng-show="currentDealer.admin_username">
 				<span>
 				Copyright @ kuwy.in. All Rights Reserved			
 				</span>

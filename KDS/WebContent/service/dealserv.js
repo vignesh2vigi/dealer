@@ -9,6 +9,14 @@ app.factory('DealerService',function($http){
 	{
 	return $http.get(BASE_URL+"/servlet/dealerlist3")
 	}
+	dealerService.list=function()
+	{
+	return $http.get(BASE_URL+"/servlet/dealerlistave")
+	}
+	dealerService.deallist=function()
+	{
+	return $http.get(BASE_URL+"/servlet/dealerlistrjt")
+	}
 
 	dealerService.loanlimit=function(loan)
 	{
@@ -26,10 +34,11 @@ app.factory('DealerService',function($http){
 	{
 	return $http.get(BASE_URL+"/servlet/logout")
 	}
-	dealerService.ape=function(dealer_name)
+	dealerService.ape=function(sno)
 	{
-	return $http.get(BASE_URL+"/servlet/approve/"+dealer_name)
+	return $http.get(BASE_URL+"/servlet/approve/"+sno)
 	}
+	
 	return dealerService;
 	
 })

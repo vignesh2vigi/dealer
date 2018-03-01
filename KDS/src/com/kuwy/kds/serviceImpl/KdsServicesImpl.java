@@ -49,15 +49,27 @@ public class KdsServicesImpl implements KdsServices {
 	}
 
 	@Override
-	public KdsModel ape(String dealer_name) {
+	public KdsModel ape(String dealer_mobile) {
 		// TODO Auto-generated method stub
-		return kdsDao.ape(dealer_name);
+		return kdsDao.ape(dealer_mobile);
 	}
 
 	@Override
 	public KdsModel reject(KdsModel reject) {
 		// TODO Auto-generated method stub
 		return kdsDao.reject(reject);
+	}
+
+	@Override
+	public List<KdsModel> ave() {
+		// TODO Auto-generated method stub
+		return kdsDao.ave();
+	}
+
+	@Override
+	public List<KdsModel> rjt() {
+		// TODO Auto-generated method stub
+		return kdsDao.rjt();
 	}
 	
 	

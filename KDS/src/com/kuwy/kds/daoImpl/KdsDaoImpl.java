@@ -74,7 +74,7 @@ public class KdsDaoImpl implements KdsDao {
 		List<KdsModel> custDetailsList = new ArrayList<KdsModel>();
 		KdsModel custVehiDetailsOutObj = new KdsModel();
 		
-		String pendingQuery = "SELECT dealer_name,dealer_mobile,dealer_email,dealer_pwd,dealer_shopimages,dealer_shopname,dealer_type,dealer_pan,dealer_aadhaar,dealer_area,dealer_city,dealer_state,dealer_pincode,dealer_geo_address,dealer_sign FROM kuwy_dealer_login_reg";
+		String pendingQuery = "SELECT sno,dealer_name,dealer_mobile,dealer_email,dealer_pwd,dealer_shopimages,dealer_shopname,dealer_type,dealer_pan,dealer_aadhaar,dealer_area,dealer_city,dealer_state,dealer_pincode,dealer_geo_address,dealer_sign FROM kuwy_dealer_login_reg WHERE activation_status='0' AND loanlimit='0' and remark IS NULL";
 		System.out.println("pendingQuery------------------------------------->"+pendingQuery);
 		try {
 			
@@ -134,7 +134,7 @@ public class KdsDaoImpl implements KdsDao {
 		
          KdsModel custVehiDetailsOutObj = new KdsModel();
          List<KdsModel> custDetailsList = new ArrayList<KdsModel>();
-		String pendingQuery = "SELECT dealer_name,dealer_mobile,dealer_email,dealer_pwd,dealer_shopimages,dealer_shopname,dealer_type,dealer_pan,dealer_aadhaar,dealer_area,dealer_city,dealer_state,dealer_pincode,dealer_geo_address,dealer_sign FROM kuwy_dealer_login_reg";
+		String pendingQuery = "SELECT sno,dealer_name,dealer_mobile,dealer_email,dealer_pwd,dealer_shopimages,dealer_shopname,dealer_type,dealer_pan,dealer_aadhaar,dealer_area,dealer_city,dealer_state,dealer_pincode,dealer_geo_address,dealer_sign,loanlimit,remark FROM kuwy_dealer_login_reg";
 		System.out.println("pendingQuery------------------------------------->"+pendingQuery);
 		try {
 			
@@ -161,11 +161,11 @@ public class KdsDaoImpl implements KdsDao {
 	
 			int insertDealerReg_int = 0;
 			
-			String insertDealerReg_query ="UPDATE kuwy_dealer_login_reg SET loanlimit = ? WHERE dealer_name=?";
+			String insertDealerReg_query ="UPDATE kuwy_dealer_login_reg SET loanlimit = ?, activation_status='1',remark='approved' WHERE dealer_email=?";
 System.out.println("Query==========="+insertDealerReg_query);
 			insertDealerReg_int = this.jdbcTemplate.update(
 					insertDealerReg_query,
-					new Object[] { loan.getLoanlimit(),loan.getDealer_name()});
+					new Object[] { loan.getLoanlimit(),loan.getDealer_email()});
 			if (insertDealerReg_int > 0) {
 				dealerRegLoginOutObj.setStatus(true);
 				dealerRegLoginOutObj
@@ -176,6 +176,30 @@ System.out.println("Query==========="+insertDealerReg_query);
 						.setMessage("loan UnSuccessful...!");
 			}
 		} catch (Exception e) {
+			System.out.println(e.getLocalizedMessage());
+			dealerRegLoginOutObj.setStatus(false);
+			dealerRegLoginOutObj.setMessage(e.getMessage());
+		}
+		System.out.println("i feel up========");
+		try {
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+
+			int insertDealerReg_int = 0;
+			String insertDealerReg_query = "INSERT INTO kuwy_user_active_history (admin_id,dealer_id,action_datetime,approve_status,loan_limit,remark) VALUES (?,?,?, ?, ?,'approved')";
+System.out.println("Query==="+insertDealerReg_query);
+			insertDealerReg_int = this.jdbcTemplate.update(
+					insertDealerReg_query,
+					new Object[] { loan.getAdmin_id(),loan.getSno(),ts,1,loan.getLoanlimit()});
+			if (insertDealerReg_int > 0) {
+				dealerRegLoginOutObj.setStatus(true);
+				dealerRegLoginOutObj
+						.setMessage("Dealer Approve Successfully...!");
+			} else {
+				dealerRegLoginOutObj.setStatus(false);
+				dealerRegLoginOutObj
+						.setMessage("Dealer Reject UnSuccessful...!");
+			}
+		} catch (DataAccessException e) {
 			System.out.println(e.getLocalizedMessage());
 			dealerRegLoginOutObj.setStatus(false);
 			dealerRegLoginOutObj.setMessage(e.getMessage());
@@ -192,14 +216,17 @@ System.out.println("Query==========="+insertDealerReg_query);
        
 			KdsModel bank = new KdsModel();
 			List<KdsModel> bankModelObjArray = new ArrayList<KdsModel>(); 
-			String query = "SELECT dealer_name,dealer_email,dealer_pwd FROM kuwy_dealer_login_reg WHERE dealer_name='"+log.getDealer_name()+"' AND dealer_pwd='"+log.getDealer_pwd()+"' "; 
+			
+			String query = "SELECT admin_id_pk,admin_id,admin_username,admin_password FROM kuwy_dealer_admin_log WHERE admin_id='"+log.getAdmin_id()+"' AND admin_password='"+log.getAdmin_password()+"' "; 
 			System.out.println("query"+query);
 			
 			bankModelObjArray = getJdbcTemplate().query(query, new BeanPropertyRowMapper(KdsModel.class)); 
 			if (bankModelObjArray.size() > 0) {
 				bank.setStatus(true);
-				bank.setDealer_name(bankModelObjArray.get(0).getDealer_name());
-				bank.setDealer_pwd(bankModelObjArray.get(0).getDealer_pwd());
+				bank.setAdmin_id_pk(bankModelObjArray.get(0).getAdmin_id_pk());
+				bank.setAdmin_id(bankModelObjArray.get(0).getAdmin_id());
+				bank.setAdmin_username(bankModelObjArray.get(0).getAdmin_username());
+				bank.setAdmin_password(bankModelObjArray.get(0).getAdmin_password());
 				
 				} else { 
 					/*System.out.println("pass");*/
@@ -209,21 +236,23 @@ System.out.println("Query==========="+insertDealerReg_query);
 			
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public KdsModel ape(String dealer_name) {
+	public KdsModel ape(String dealer_mobile) {
 		// TODO Auto-generated method stub
 	
-		System.out.println("dealername====="+dealer_name);
+		System.out.println("dealername====="+dealer_mobile);
 		KdsModel bank = new KdsModel();
 		List<KdsModel> bankModelObjArray = new ArrayList<KdsModel>(); 
-		String query = "SELECT dealer_name,dealer_email FROM kuwy_dealer_login_reg WHERE dealer_name='"+dealer_name+"'"; 
+		String query = "SELECT sno,dealer_name,dealer_email,dealer_mobile FROM kuwy_dealer_login_reg WHERE dealer_mobile='"+dealer_mobile+"'"; 
 		System.out.println("query"+query);
 	
 		bankModelObjArray = getJdbcTemplate().query(query, new BeanPropertyRowMapper(KdsModel.class)); 
 		if (bankModelObjArray.size() > 0) {
 			bank.setStatus(true);
 			bank.setDealer_name(bankModelObjArray.get(0).getDealer_name());
-		bank.setDealer_email(bankModelObjArray.get(0).getDealer_email());		
+		bank.setDealer_email(bankModelObjArray.get(0).getDealer_email());
+		bank.setSno(bankModelObjArray.get(0).getSno());
 			} else { 
 				/*System.out.println("pass");*/
 				bank.setStatus(false);
@@ -238,11 +267,11 @@ System.out.println("Query==========="+insertDealerReg_query);
 	
 			int insertDealerReg_int = 0;
 			
-			String insertDealerReg_query ="UPDATE kuwy_dealer_login_reg SET remark = ? WHERE dealer_name=?";
+			String insertDealerReg_query ="UPDATE kuwy_dealer_login_reg SET remark = ?,activation_status='0',loanlimit='0' WHERE dealer_email=?";
 System.out.println("Query==========="+insertDealerReg_query);
 			insertDealerReg_int = this.jdbcTemplate.update(
 					insertDealerReg_query,
-					new Object[] { reject.getRemark(),reject.getDealer_name()});
+					new Object[] { reject.getRemark(),reject.getDealer_email()});
 			if (insertDealerReg_int > 0) {
 				dealerRegLoginOutObj.setStatus(true);
 				dealerRegLoginOutObj
@@ -257,8 +286,83 @@ System.out.println("Query==========="+insertDealerReg_query);
 			dealerRegLoginOutObj.setStatus(false);
 			dealerRegLoginOutObj.setMessage(e.getMessage());
 		}
+		System.out.println("===============nimbuzzzzzzzzz==========================================");
+		try {
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+
+			int insertDealerReg_int = 0;
+			String insertDealerReg_query = "INSERT INTO kuwy_user_active_history (dealer_id,action_datetime,approve_status,loan_limit,remark) VALUES (?,?, ?, ?,?)";
+			System.out.println("second===="+insertDealerReg_query);
+System.out.println("Query==="+insertDealerReg_query);
+			insertDealerReg_int = this.jdbcTemplate.update(
+					insertDealerReg_query,
+					new Object[] { reject.getSno(),ts,0,0,reject.getRemark()});
+			if (insertDealerReg_int > 0) {
+				dealerRegLoginOutObj.setStatus(true);
+				dealerRegLoginOutObj
+						.setMessage("Dealer Reject Successfully...!");
+			} else {
+				dealerRegLoginOutObj.setStatus(false);
+				dealerRegLoginOutObj
+						.setMessage("Dealer Reject UnSuccessful...!");
+			}
+		} catch (DataAccessException e) {
+			System.out.println(e.getLocalizedMessage());
+			dealerRegLoginOutObj.setStatus(false);
+			dealerRegLoginOutObj.setMessage(e.getMessage());
+		}
 
 		return dealerRegLoginOutObj;
+	}
+
+	@Override
+	public List<KdsModel> ave() {
+
+        KdsModel custVehiDetailsOutObj = new KdsModel();
+        List<KdsModel> custDetailsList = new ArrayList<KdsModel>();
+		String pendingQuery = "SELECT dealer_name,dealer_mobile,dealer_email,dealer_pwd,dealer_shopimages,dealer_shopname,dealer_type,dealer_pan,dealer_aadhaar,dealer_area,dealer_city,dealer_state,dealer_pincode,dealer_geo_address,dealer_sign,loanlimit,remark FROM kuwy_dealer_login_reg WHERE activation_status='1'";
+		System.out.println("pendingQuery------------------------------------->"+pendingQuery);
+		try {
+			
+			custDetailsList = this.jdbcTemplate.query(pendingQuery,
+					new BeanPropertyRowMapper(KdsModel.class));
+			
+			if (custDetailsList.size() != 0) {
+				custDetailsList.add(custVehiDetailsOutObj);
+			}else{
+				custVehiDetailsOutObj.setMessage("No Lead Found");
+				custVehiDetailsOutObj.setStatus(false);
+			}
+		} catch (Exception e) {
+			custVehiDetailsOutObj.setStatus(false);
+			custVehiDetailsOutObj.setMessage(e.getMessage());
+		}
+		return custDetailsList;
+	}
+
+	@Override
+	public List<KdsModel> rjt() {
+
+        KdsModel custVehiDetailsOutObj = new KdsModel();
+        List<KdsModel> custDetailsList = new ArrayList<KdsModel>();
+		String pendingQuery = "SELECT dealer_name,dealer_mobile,dealer_email,dealer_pwd,dealer_shopimages,dealer_shopname,dealer_type,dealer_pan,dealer_aadhaar,dealer_area,dealer_city,dealer_state,dealer_pincode,dealer_geo_address,dealer_sign FROM kuwy_dealer_login_reg WHERE activation_status='0' AND remark IS NOT NULL";
+		System.out.println("pendingQuery------------------------------------->"+pendingQuery);
+		try {
+			
+			custDetailsList = this.jdbcTemplate.query(pendingQuery,
+					new BeanPropertyRowMapper(KdsModel.class));
+			
+			if (custDetailsList.size() != 0) {
+				custDetailsList.add(custVehiDetailsOutObj);
+			}else{
+				custVehiDetailsOutObj.setMessage("No Lead Found");
+				custVehiDetailsOutObj.setStatus(false);
+			}
+		} catch (Exception e) {
+			custVehiDetailsOutObj.setStatus(false);
+			custVehiDetailsOutObj.setMessage(e.getMessage());
+		}
+		return custDetailsList;
 	}
 		
 		 

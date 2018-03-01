@@ -33,11 +33,12 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/loanlimit", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<KdsModel> loanlimit(@RequestBody KdsModel loan) {
-		System.out.println("hi==================="+loan.getDealer_name());
+		System.out.println("hi===================");
 		KdsModel dealerRegLoginObj = kdsServices.loan(loan);
 		return new ResponseEntity<KdsModel>(dealerRegLoginObj,
 				HttpStatus.OK);
 	}
+	
 	@RequestMapping(value = "/reject", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<KdsModel> reject(@RequestBody KdsModel reject) {
 		System.out.println("hi==================="+reject.getDealer_name());
@@ -46,11 +47,11 @@ public class HomeController {
 				HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/dealerlist", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	/*@RequestMapping(value = "/dealerlist", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<KdsModel> dealerlist() {
 		KdsModel dealerObj = kdsServices.dealerlist();
 		return new ResponseEntity<KdsModel>(dealerObj,HttpStatus.OK);
-	}
+	}*/
 	
 	@RequestMapping(value = "/delete/{dealer_name}", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<KdsModel> deletedel(@PathVariable String dealer_name) {
@@ -58,20 +59,40 @@ public class HomeController {
 		KdsModel dealerObj = kdsServices.delete(dealer_name);
 		return new ResponseEntity<KdsModel>(dealerObj,HttpStatus.OK);
 	}
-	@RequestMapping(value = "/approve/{dealer_name}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<KdsModel> ape(@PathVariable String dealer_name) {
-		System.out.println("delete========"+dealer_name);
-		KdsModel deal = kdsServices.ape(dealer_name);
+	@RequestMapping(value = "/approve/{dealer_mobile}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<KdsModel> ape(@PathVariable String dealer_mobile) {
+		System.out.println("delete========"+dealer_mobile);
+		KdsModel deal = kdsServices.ape(dealer_mobile);
 		return new ResponseEntity<KdsModel>(deal,HttpStatus.OK);
 	}
 	@RequestMapping(value="/dealerlist3",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getlist(HttpSession session){
-		String dealer_name=(String)session.getAttribute("dealer_name");
-		 if(dealer_name==null){
+		/*String admin_username=(String)session.getAttribute("admin_username");
+		 if(admin_username==null){
+			
+			return new ResponseEntity<Error>(HttpStatus.UNAUTHORIZED);
+		}*/
+		 List<KdsModel> list=kdsServices.Dealerlist();
+		 return new ResponseEntity<List<KdsModel>>(list,HttpStatus.OK);
+}
+	@RequestMapping(value="/dealerlistave",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> list(HttpSession session){
+		String admin_username=(String)session.getAttribute("admin_username");
+		 if(admin_username==null){
 			
 			return new ResponseEntity<Error>(HttpStatus.UNAUTHORIZED);
 		}
-		 List<KdsModel> list=kdsServices.Dealerlist();
+		 List<KdsModel> list=kdsServices.ave();
+		 return new ResponseEntity<List<KdsModel>>(list,HttpStatus.OK);
+}
+	@RequestMapping(value="/dealerlistrjt",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> deallist(HttpSession session){
+		/*String admin_username=(String)session.getAttribute("admin_username");
+		 if(admin_username==null){
+			
+			return new ResponseEntity<Error>(HttpStatus.UNAUTHORIZED);
+		}*/
+		 List<KdsModel> list=kdsServices.rjt();
 		 return new ResponseEntity<List<KdsModel>>(list,HttpStatus.OK);
 }
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
@@ -80,17 +101,18 @@ public class HomeController {
 		if(validUser==null){
 			return new ResponseEntity<Error>(HttpStatus.UNAUTHORIZED);
 		}
-		session.setAttribute("dealer_name", validUser.getDealer_name());
+		session.setAttribute("admin_username", validUser.getAdmin_username());
+		session.setAttribute("admin_id", validUser.getAdmin_id());
 		return new ResponseEntity<KdsModel>(validUser,HttpStatus.OK);	
 	}
 	@RequestMapping(value = "/logout", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 public ResponseEntity<?> logout(HttpSession session){
-	String dealer_name=(String)session.getAttribute("dealer_name");
-	System.out.println("Name of the user is"+ dealer_name);
-	if(dealer_name==null){
+	String admin_username=(String)session.getAttribute("admin_username");
+	System.out.println("Name of the user is"+ admin_username);
+	if(admin_username==null){
 		return new ResponseEntity<Error>(HttpStatus.UNAUTHORIZED);
 	}
-	session.removeAttribute("dealer_name");
+	session.removeAttribute("admin_username");
 	return new ResponseEntity<KdsModel>(HttpStatus.OK);
 }
 }

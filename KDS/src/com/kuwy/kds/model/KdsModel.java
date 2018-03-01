@@ -36,6 +36,52 @@ public class KdsModel{
 	private String dealer_id;
 	private String loanlimit;
 	private String remark;
+	private int admin_id_pk;
+	private String admin_id;
+	private String admin_username;
+	private String admin_password;
+	
+private int sno;
+	public int getSno() {
+	return sno;
+}
+
+public void setSno(int sno) {
+	this.sno = sno;
+}
+
+	public int getAdmin_id_pk() {
+		return admin_id_pk;
+	}
+
+	public void setAdmin_id_pk(int admin_id_pk) {
+		this.admin_id_pk = admin_id_pk;
+	}
+
+	public String getAdmin_id() {
+		return admin_id;
+	}
+
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
+	}
+
+	public String getAdmin_username() {
+		return admin_username;
+	}
+
+	public void setAdmin_username(String admin_username) {
+		this.admin_username = admin_username;
+	}
+
+	public String getAdmin_password() {
+		return admin_password;
+	}
+
+	public void setAdmin_password(String admin_password) {
+		this.admin_password = admin_password;
+	}
+
 	public String getRemark() {
 		return remark;
 	}
