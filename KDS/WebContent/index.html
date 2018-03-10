@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/x-icon" href="images/logo-icon.png" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet' type='text/css'>
         <title>Kuwy Dealer list</title>
         <style type="text/css">
   .login-container{
@@ -186,17 +189,72 @@ th {
     text-align: center;
     margin: 60px 0 50px;
 }
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  background-color: #333333;
+  opacity:0.8; // I ADDED THIS LINE 
+    }
+}
+.bs-example{
+	margin: 20px;
+}
+/* Some custom styles to beautify this example */
+.hide-modal{
+    width: 200px;
+	position: absolute;
+	margin: 0 auto;
+	right: 0;
+	left: 0;
+    bottom: 20px;
+	z-index: 9999;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  color: #6D7781;
+  font-family: "Sofia", cursive;
+  font-size: 15px;
+  font-weight: bold;
+  font-size: 3.6em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+a {
+  color: #435160;
+  text-decoration: none;
+}
+.login {
+   margin-top: 50px;
+  width: 350px;
+  position: relative; 
+  top: 10%;
+  left: 50%;
+  margin-left: -175px;
+   margin-bottom: 20px;
+}
+
+
 }</style>
     </head>
     <body ng-app="app">
     <nav class="navbar navbar-inverse" ng-show="currentDealer.admin_username" >
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="">DEALER ADMIN PORTAL</a>
+    <a href="" ng-show="currentDealer.admin_username"><img src="images/logo-icon.png" class="img-responsive" height="60px" width="60px"alt="Upload" ></a>
+      
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="" ng-show="currentDealer.admin_username"><img src="images/logo-icon.png" class="img-responsive" height="30px" width="30px"alt="Upload" ></a></li>
-       <li ><a href="#!/dealerlist">dealerlist</a></li> 
+    <br>
+    <li><a class="navbar-brand" href="">DEALER ADMIN PORTAL</a></li>
+       <li ><a href="#!/dealerlist">Dealer list</a></li> 
         <li ><a href="#!/approvelist">Approved list</a></li> 
          <li ><a href="#!/rejectlist">Rejected list</a></li> 
       <li ><a href="#!/logout"  ng-show="currentDealer.admin_username" ng-click="logout()">LOGOUT</a></li>
@@ -211,9 +269,11 @@ th {
 				</span>
 		</div>
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/boot.js"></script>
+<script type="text/javascript" src="js/dirPagination.js"></script>
 <script type="text/javascript" src="js/angularcookie.js"></script>
 <script type="text/javascript" src="js/angularroute.js"></script>
 <script type="text/javascript" src="js/app.js"></script>

@@ -1,60 +1,348 @@
-<br>
-<p>Search:</p><input type="text" ng-model="searchTxt" placeholder="search">
+
+<style>
+input[type="text"], input[type="password"], input[type="email"] {
+  width: 350px;
+  padding: 20px 0px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #435160;
+  outline: none;
+  color: #212121;
+  font-size: 16px;
+}
+
+label {
+  display: block;
+  position: absolute;
+  margin-right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  content: "";
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+input[type="submit"] {
+  background: #1FCE6D;
+  border: 0;
+  width: 350px;
+  height: 40px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+input[type="submit"]:hover {
+  background: #16aa56;
+  animation-name: shake;
+}
+.forgot {
+  margin-top: 30px;
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  font-weight: bold;
+}
+.forgot:hover {
+  margin-top: 30px;
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  font-weight: bold;
+  color: #6D7781;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #0c0c0c;
+    border-color: #151515;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #0f1010;
+    border-color: #121213;
+}
+.animated {
+  animation-fill-mode: both;
+  animation-duration: 1s;
+}
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 7px 34px;
+    margin-left: 0px;
+    line-height: 1.42857143;
+    color: #0e0e0e;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #0c0c0c;
+}
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {
+    color: #0e0e0e;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #191818;
+}
+.arrow-up,.arrow-down{
+    width:0;
+    height:0;
+    border-right: 5px transparent;
+    border-left: 5px transparent;
+    border-bottom-color: 10px solid black;
+    display: inline-block;
+
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #191717;
+}
+</style>
+<input type="text" ng-model="searchTxt" placeholder="search">
 <br><br>
 <div id="exportable">
 <table class="table table-striped">
 <thead>
 <tr>
-<th>update</th>
+
+
+<th ng-click="sortData('Dealername')">Dealername
+<div ng-class="getsortClass('Dealername')"></div></th>
 <th>Kuwy Id(Mobile)</th>
-<th>Dealer name</th>
+<!-- <th>Image</th> -->
 <th>Email</th>
-<th>Password</th>
 <th>Shop name</th>
 <th>Type</th>
 <th>Pan</th>
-<th>Aadhar</th>
 <th>Area</th>
 <th>City</th>
 <th>State</th>
 <th>Pin code</th>
-<th>Sign</th>
-<th>Shop image</th>
-<th>GEO Address</th>
+<th>Address</th>
 <th>Loan Limit</th>
-<th>Remark</th>
+<th>Reg Date</th>
+<th>Status</th>
+<th>Action</th>
 </tr>
 </thead>
 <tbody >
-<tr ng-repeat="loan in deal | filter:searchTxt">
-<td>
-<a href="#!approve/{{loan.dealer_mobile}}"><i class="material-icons right">Active</i></a>
-<a href="#!reject/{{loan.dealer_mobile}}"><i class="material-icons right">Inactive</i></a>
-</td>
-<td>{{loan.dealer_mobile}}</td>
+<tr dir-paginate="loan in deal | filter:searchTxt | orderBy:sortColumn:reverseSort| itemsPerPage:5">
+
 <td>{{loan.dealer_name}}</td>
+<td>{{loan.dealer_mobile}}</td>
+<!-- <td><div ng-if="loan.dealer_shopimages"><img class="img-responsive" height="60px" width="60px"  src="{{loan.dealer_shopimages}}"></div>
+<div ng-if="!loan.dealer_shopimages">Didn't upload</div>
+</td> -->
 <td>{{loan.dealer_email}}</td>
-<td>{{loan.dealer_pwd}}</td>
 <td>{{loan.dealer_shopname}}</td>
-<td>{{loan.dealer_type}}</td>
+<td>
+<div ng-if="loan.dealer_type == '1'">
+    Multibrand
+</div>
+<div ng-if="loan.dealer_type == '2'">
+   Proprietary
+</div>
+<div ng-if="loan.dealer_type == '3'">
+   Broker
+</div>
+<div ng-if="loan.dealer_type == '4'">
+    Independent
+</div>
+</td>
 <td>{{loan.dealer_pan}}</td>
-<td>{{loan.dealer_aadhaar}}</td>
 <td>{{loan.dealer_area}}</td>
 <td>{{loan.dealer_city}}</td>
 <td>{{loan.dealer_state}}</td>
 <td>{{loan.dealer_pincode}}</td>
-<td>{{loan.dealer_sign}}</td>
-<td>{{loan.dealer_shopimages}}</td>
 <td>{{loan.dealer_geo_address}}</td>
-<td>{{loan.loanlimit}}</td>
-<td>{{loan.remark}}</td>
+<td>
+   {{loan.loanlimit}}
+</td>
+<td>{{loan.regdate}}</td>
+<td>
+<div ng-if="loan.activation_status == '0'">
+    Inactive
+</div>
+<div ng-if="loan.activation_status == '1'">
+    active
+</div>
 
+</td>
+<td>
+<div ng-if="loan.activation_status == '0'">
+    <a  ng-href="#!/approve/{{loan.dealer_mobile}}" data-toggle="modal" data-target="#myModal1" class="btn btn-primary"  data-method="get">Active</a><br><br>
+</div>
+<div ng-if="loan.activation_status == '1'">
+<a ng-href="#!/reject/{{loan.dealer_mobile}}" data-toggle="modal" data-target="#myModal" class="btn btn-primary" data-method="get">Inactive</a>
+</div>
+<br>
+<!-- <a href="#!approve/{{loan.dealer_mobile}}"><i class="material-icons right">Active</i></a> -->
+<!-- <a href="#!reject/{{loan.dealer_mobile}}"><i class="material-icons right">Inactive</i></a> -->
+<a ng-href="#!edit/{{loan.dealer_mobile}}" data-toggle="modal" class="btn btn-primary" data-target="#myModal2"  data-method="get">Edit</a>
+</td>
 </tr>
 </tbody>
 </table>
-</div>
 
-<!-- <div><form >
-<input type="text" ng-model="loan.dealer_name">
-<input type="number" ng-model="loan.loanlimit" placeholder="Loanlimit">
-<input type="submit" class="btn btn-default" value="submit" ng-click="loanlimit()"></form></div> -->
+<dir-pagination-controls
+            max-size="8"
+            direction-links="true"
+            boundary-links="true" >
+        </dir-pagination-controls>
+</div>
+<a href="https://www.indiancompany.info/company/kuwy-technology-service-private-limited">Google</a>
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Enter Loan Limit</h4>
+        </div>
+        <div class="modal-body">
+       <!--   <input type="hidden"  ng-model="currentDealer.admin_id" value="{{currentDealer.admin_id}}" disabled> -->
+   <input type="hidden"  ng-model="loan.sno" value="{{loan.sno}}" disabled>
+     <input type="hidden"  ng-model="loan.dealer_email" value="{{loan.dealer_email}}" disabled>
+     
+  <input type="checkbox" id="1" ng-model="loan.product_interest1" ng-true-value="1" ng-false-value="0">Loan<br>
+  <input type="checkbox" id="2" ng-model="loan.product_interest2" ng-true-value="2" ng-false-value="0">E-app<br>
+  <input type="checkbox" id="3" ng-model="loan.product_interest3" ng-true-value="3" ng-false-value="0">E-offer<br>
+  <input type="checkbox" id="4" ng-model="loan.product_interest4" ng-true-value="4" ng-false-value="0"> Dp funding<br>
+  <input type="checkbox" id="5" ng-model="loan.product_interest5" ng-true-value="5" ng-false-value="0">vehicle valuation<br>
+  <input type="checkbox" id="6" ng-model="loan.product_interest6" ng-true-value="6" ng-false-value="0">procurement<br>
+  <input type="checkbox" id="7" ng-model="loan.product_interest7" ng-true-value="7" ng-false-value="0">Retail<br>
+  <input type="checkbox" id="8" ng-model="loan.product_interest8" ng-true-value="8" ng-false-value="0">Execute<br>
+  <input type="checkbox" id="9" ng-model="loan.product_interest9" ng-true-value="9" ng-false-value="0">Buy back<br>
+  <input type="checkbox" id="10" ng-model="loan.product_interest10" ng-true-value="10" ng-false-value="0">R.T.O<br>
+ 
+     
+     
+  <input type="number" ng-model="loan.loanlimit" placeholder="Loanlimit">
+        </div>
+        <div class="modal-footer" ng-show="loan.loanlimit">
+          <button  type="button" class="btn btn-success"  id="some" ng-click="loanlimit()" >submit</button>      
+        </div>
+      </div> 
+    </div>
+  </div>
+ 
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Enter Your Remark</h4>
+        </div>
+        <div class="modal-body">
+         <!-- <input type="hidden"  ng-model="currentDealer.admin_id" value="{{currentDealer.admin_id}}" disabled> -->
+   <input type="hidden"  ng-model="loan.sno" value="{{loan.sno}}" disabled> 
+   <input type="hidden"  ng-model="loan.dealer_email" value="{{loan.dealer_email}}" disabled>
+    <textarea rows="5" cols="20" ng-model="loan.remark" title="Enter Blog Content" class="form-control" placeholder="REMARK" ></textarea>
+        </div>
+        <div class="modal-footer" ng-show="loan.remark">
+          <button type="button"  class="btn btn-success" data-dismiss="modal" id="some11" ng-click="reject()">submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h2>Edit Dealer:{{loan.dealer_name}}</h2>
+        </div>
+        <div class="modal-body">
+         <!-- <input type="hidden"  ng-model="currentDealer.admin_id" value="{{currentDealer.admin_id}}" disabled> -->
+ <div class='login'>
+  
+  <form>
+  <input type="hidden"  ng-model="loan.sno" value="{{loan.sno}}" >
+ <label>Dealername</label>
+  <input type="text"  ng-model="loan.dealer_name" value="{{loan.dealer_name}}" >
+ 
+    <input type="hidden"  ng-model="loan.dealer_pwd" value="{{loan.dealer_pwd}}">
+  <label>Email</label>
+  <input type="text"  ng-model="loan.dealer_email" value="{{loan.dealer_email}}" disabled>
+  <label>Mobile</label>
+  <input type="text"  ng-model="loan.dealer_mobile" value="{{loan.dealer_mobile}}" disabled >
+  <label>Shopname</label>
+	<input type="text"  ng-model="loan.dealer_shopname" value="{{loan.dealer_shopname}}">
+	 
+	 <input type="hidden"  ng-model="loan.dealer_type" value="{{loan.dealer_type}}">
+  <label>State</label>
+ <input type="text"  ng-model="loan.dealer_state" value="{{loan.dealer_state}}">
+  <label>City</label>
+	 <input type="text"  ng-model="loan.dealer_city" value="{{loan.dealer_city}}">
+	
+	<label>Area</label>
+   <input type="text"  ng-model="loan.dealer_area" value="{{loan.dealer_area}}">
+   <label>Pincode</label> 
+	 <input type="text"  ng-model="loan.dealer_pincode" value="{{loan.dealer_pincode}}">
+	
+  
+ <br>
+ <br>
+  </form>
+
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button"  class="btn btn-success" data-dismiss="modal" id="some2"  ng-click="edit()">submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$('#some').click(function(){
+		/* console.log("alert2======");
+		$('#myModal').modal('hide'); */
+		$(".modal-backdrop").hide();
+		/* console.log("alert3======");
+		$('#myModal').empty();
+		console.log("alert4=====");
+		$('#myModal').remove(); */
+	}); 
+});
+$(document).ready(function(){
+
+	$('#some11').click(function(){
+		/* console.log("alert2======");
+		$('#myModal').modal('hide'); */
+		$(".modal-backdrop").hide();
+		/* console.log("alert3======");
+		$('#myModal').empty();
+		console.log("alert4=====");
+		$('#myModal').remove(); */
+	}); 
+});
+$(document).ready(function(){
+
+	$('#some2').click(function(){
+		/* console.log("alert2======");
+		$('#myModal').modal('hide'); */
+		$(".modal-backdrop").hide();
+		/* console.log("alert3======");
+		$('#myModal').empty();
+		console.log("alert4=====");
+		$('#myModal').remove(); */
+	}); 
+});
+</script>
+

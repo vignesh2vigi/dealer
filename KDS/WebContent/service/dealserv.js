@@ -20,11 +20,16 @@ app.factory('DealerService',function($http){
 
 	dealerService.loanlimit=function(loan)
 	{
-	return $http.put(BASE_URL+"/servlet/loanlimit",loan)
+	return $http.post(BASE_URL+"/servlet/loanlimit",loan)
 	}
+	dealerService.edit=function(edit)
+	{
+	return $http.post(BASE_URL+"/servlet/edit",edit)
+	}
+
 	dealerService.reject=function(loan)
 	{
-	return $http.put(BASE_URL+"/servlet/reject",loan)
+	return $http.post(BASE_URL+"/servlet/reject",loan)
 	}
 	dealerService.login=function(log)
 	{

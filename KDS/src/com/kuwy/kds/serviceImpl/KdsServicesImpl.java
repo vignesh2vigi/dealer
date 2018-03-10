@@ -18,11 +18,6 @@ public class KdsServicesImpl implements KdsServices {
 		return kdsDao.accessSignupSheet(bankModel);
 	}
 
-	@Override
-	public KdsModel dealerlist() {
-		// TODO Auto-generated method stub
-		return kdsDao.dealerlist();
-	}
 
 	@Override
 	public KdsModel delete(String dealer_name) {
@@ -71,6 +66,30 @@ public class KdsServicesImpl implements KdsServices {
 		// TODO Auto-generated method stub
 		return kdsDao.rjt();
 	}
+
+
+	@Override
+	public boolean valid(String admin_id) {
+		// TODO Auto-generated method stub
+		return kdsDao.valid(admin_id);
+	}
+
+
+	@Override
+	public boolean validpass(String admin_password) {
+		// TODO Auto-generated method stub
+		return kdsDao.validpass(admin_password);
+	}
+
+
+	@Override
+	public KdsModel edit(KdsModel edit) {
+		// TODO Auto-generated method stub
+		return kdsDao.edit(edit);
+	}
+
+
+	
 	
 	
 	

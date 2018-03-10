@@ -1,5 +1,6 @@
 package com.kuwy.kds.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,120 @@ public class KdsModel{
 	private String admin_id;
 	private String admin_username;
 	private String admin_password;
+	private Date regdate;
 	
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	private String product_interest;
+	private String product_interest1;
+	private String product_interest2;
+	private String product_interest3;
+	private String product_interest4;
+	private String product_interest5;
+	private String product_interest6;
+	private String product_interest7;
+	private String product_interest8;
+	private String product_interest9;
+	private String product_interest10;
+public String getProduct_interest1() {
+		return product_interest1;
+	}
+
+	public void setProduct_interest1(String product_interest1) {
+		this.product_interest1 = product_interest1;
+	}
+
+	public String getProduct_interest2() {
+		return product_interest2;
+	}
+
+	public void setProduct_interest2(String product_interest2) {
+		this.product_interest2 = product_interest2;
+	}
+
+	public String getProduct_interest3() {
+		return product_interest3;
+	}
+
+	public void setProduct_interest3(String product_interest3) {
+		this.product_interest3 = product_interest3;
+	}
+
+	public String getProduct_interest4() {
+		return product_interest4;
+	}
+
+	public void setProduct_interest4(String product_interest4) {
+		this.product_interest4 = product_interest4;
+	}
+
+	public String getProduct_interest5() {
+		return product_interest5;
+	}
+
+	public void setProduct_interest5(String product_interest5) {
+		this.product_interest5 = product_interest5;
+	}
+
+	public String getProduct_interest6() {
+		return product_interest6;
+	}
+
+	public void setProduct_interest6(String product_interest6) {
+		this.product_interest6 = product_interest6;
+	}
+
+	public String getProduct_interest7() {
+		return product_interest7;
+	}
+
+	public void setProduct_interest7(String product_interest7) {
+		this.product_interest7 = product_interest7;
+	}
+
+	public String getProduct_interest8() {
+		return product_interest8;
+	}
+
+	public void setProduct_interest8(String product_interest8) {
+		this.product_interest8 = product_interest8;
+	}
+
+	public String getProduct_interest9() {
+		return product_interest9;
+	}
+
+	public void setProduct_interest9(String product_interest9) {
+		this.product_interest9 = product_interest9;
+	}
+
+	public String getProduct_interest10() {
+		return product_interest10;
+	}
+
+	public void setProduct_interest10(String product_interest10) {
+		this.product_interest10 = product_interest10;
+	}
+
+@Override
+	public String toString() {
+		return "KdsModel [product_interest=" + product_interest + "]";
+	}
+
+public String getProduct_interest() {
+		return product_interest;
+	}
+
+	public void setProduct_interest(String product_interest) {
+		this.product_interest = product_interest;
+	}
+
 private int sno;
 	public int getSno() {
 	return sno;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-var app = angular.module("app", [ 'ngRoute','ngCookies'])
+var app = angular.module("app", [ 'ngRoute','ngCookies','angularUtils.directives.dirPagination'])
 app.config(function($routeProvider) {
 
 	$routeProvider
@@ -23,10 +23,13 @@ app.config(function($routeProvider) {
         controller :'DealerController'	
         })
         .when('/approve/:dealer_mobile', {
-		templateUrl : 'approve.html', controller:'DealerAppController'
+		templateUrl : 'dealer.html', controller:'DealerAppController'
+	})
+	  .when('/edit/:dealer_mobile', {
+		templateUrl : 'dealer.html', controller:'DealerAppController'
 	})
         .when('/reject/:dealer_mobile', {
-		templateUrl : 'rej.html', controller:'DealerAppController'
+		templateUrl : 'dealer.html', controller:'DealerAppController'
 	})
         
     .otherwise("/login",{templateurl:"log.html",controller:'DealerController'})

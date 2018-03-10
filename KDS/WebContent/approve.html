@@ -1,4 +1,4 @@
-<!-- <div class="container"> -->
+<!-- <!-- <div class="container">
 
 <b>Name:{{loan.dealer_name}}</b><br>
 <b>Email Id:{{loan.dealer_email}}</b>
@@ -6,20 +6,285 @@
    
     <div class="form-group">
    <input type="text"  ng-model="currentDealer.admin_id" value="{{currentDealer.admin_id}}" disabled>
-   <input type="hidden"  ng-model="loan.sno" value="{{loan.sno}}" disabled>
-     <input type="hidden"  ng-model="loan.dealer_email" value="{{loan.dealer_email}}" disabled>
+   <input type="text"  ng-model="loan.sno" value="{{loan.sno}}" disabled>
+     <input type="text"  ng-model="loan.dealer_email" value="{{loan.dealer_email}}" disabled>
   <input type="number" ng-model="loan.loanlimit" placeholder="Loanlimit">
   <span class="error" ng-show="(theForm.$dirty||submitted) && theForm.password.$error.required">Password is required</span>
 <input type="submit" class="btn btn-default" value="submit" ng-click="loanlimit()"></div>
 
-<!-- <div class="form-group">
-			<input type="radio" ng-model="blogPost.approved" value="true" ng-click="showRejectionTxt(false)">Approve
 
-				<input type="radio" ng-model="blogPost.approved" value="false" ng-click="showRejectionTxt(true)">Reject
-				
-<p ng-show="isRejected">
-<textarea rows="10" cols="30" ng-model="blogPost.rejectionReason"> </textarea>
-</p>
+<br>
+<p>Search:</p><input type="text" ng-model="searchTxt" placeholder="search">
+<br><br>
+<div id="exportable">
+<table class="table table-striped">
+<thead>
+<tr>
+
+<th>Kuwy Id(Mobile)</th>
+<th>Image</th>
+<th>Dealer name</th>
+<th>Email</th>
+<th>Shop name</th>
+<th>Type</th>
+<th>Pan</th>
+<th>Area</th>
+<th>City</th>
+<th>State</th>
+<th>Pin code</th>
+<th>GEO Address</th>
+<th>Loan Limit</th>
+<th>Remark</th>
+<th>User credential</th>
+<th>update</th>
+</tr>
+</thead>
+<tbody >
+<tr ng-repeat="loan in deal | filter:searchTxt">
+
+<td>{{loan.dealer_mobile}}</td>
+<td><div ng-if="loan.dealer_shopimages"><img class="img-responsive" height="60px" width="60px"  src="{{loan.dealer_shopimages}}"></div>
+<div ng-if="!loan.dealer_shopimages">Didn't upload</div>
+</td>
+<td>{{loan.dealer_name}}</td>
+<td>{{loan.dealer_email}}</td>
+<td>{{loan.dealer_shopname}}</td>
+<td>
+<div ng-if="loan.dealer_type == '1'">
+    Multibrand
 </div>
-<button type="button"  class="btn btn-success" value="update" ng-click="updateBlogPost()">Update</button>
-</div> -->
+<div ng-if="loan.dealer_type == '2'">
+   Proprietary
+</div>
+<div ng-if="loan.dealer_type == '3'">
+   Broker
+</div>
+<div ng-if="loan.dealer_type == '4'">
+    Independent
+</div>
+</td>
+<td>{{loan.dealer_pan}}</td>
+<td>{{loan.dealer_area}}</td>
+<td>{{loan.dealer_city}}</td>
+<td>{{loan.dealer_state}}</td>
+<td>{{loan.dealer_pincode}}</td>
+<td>{{loan.dealer_geo_address}}</td>
+<td>
+<div ng-if="loan.loanlimit == '0'">
+   Rejected
+</div>
+<div ng-if="loan.loanlimit !== '0'">
+   {{loan.loanlimit}}
+</div>
+</td>
+<td>{{loan.remark}}</td>
+<td>
+<div ng-if="loan.activation_status == '0'">
+    Inactive
+</div>
+<div ng-if="loan.activation_status == '1'">
+    active
+</div>
+</td>
+<td>
+<div ng-if="loan.activation_status == '0'">
+    <a data-toggle="modal" data-target="#myModal" ng-href="#!approve/{{loan.dealer_mobile}}" class="btn btn-info btn-lg" >Active</a><br><br>
+</div>
+<div ng-if="loan.activation_status == '1'">
+<a ng-href="#!reject/{{loan.dealer_mobile}}" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-lg" >Inactive</a>
+</div>
+<a href="#!approve/{{loan.dealer_mobile}}"><i class="material-icons right">Active</i></a>
+<a href="#!reject/{{loan.dealer_mobile}}"><i class="material-icons right">Inactive</i></a>
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
+
+
+<div class="container">
+
+  Modal
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      Modal content
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Enter Loan Limit</h4>
+        </div>
+        <div class="modal-body">
+         <input type="hidden"  ng-model="currentDealer.admin_id" value="{{currentDealer.admin_id}}" disabled>
+   <input type="hidden"  ng-model="loan.sno" value="{{loan.sno}}" disabled>
+     <input type="hidden"  ng-model="loan.dealer_email" value="{{loan.dealer_email}}" disabled>
+  <input type="number" ng-model="loan.loanlimit" placeholder="Loanlimit">
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-success"  id="some" ng-click="loanlimit()" >submit</button>      
+        </div>
+      </div> 
+    </div>
+  </div>
+  
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$('#some').click(function(){
+		/* console.log("alert2======");
+		$('#myModal').modal('hide'); */
+		$(".modal-backdrop").hide();
+		/* console.log("alert3======");
+		$('#myModal').empty();
+		console.log("alert4=====");
+		$('#myModal').remove(); */
+	}); 
+});
+</script>
+ --> 
+ <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #e8eaf6;
+  color: #435160;
+  font-family: "Open Sans", sans-serif;
+}
+h2 {
+  color: #6D7781;
+  font-family: "Sofia", cursive;
+  font-size: 15px;
+  font-weight: bold;
+  font-size: 3.6em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+a {
+  color: #435160;
+  text-decoration: none;
+}
+.login {
+   margin-top: 50px;
+  width: 350px;
+  position: relative; 
+  top: 10%;
+  left: 50%;
+  margin-left: -175px;
+   margin-bottom: 20px;
+}
+input[type="text"], input[type="password"], input[type="email"] {
+  width: 350px;
+  padding: 20px 0px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #435160;
+  outline: none;
+  color: #212121;
+  font-size: 16px;
+}
+
+label {
+  display: block;
+  position: absolute;
+  margin-right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  content: "";
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+input[type="submit"] {
+  background: #1FCE6D;
+  border: 0;
+  width: 350px;
+  height: 40px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+input[type="submit"]:hover {
+  background: #16aa56;
+  animation-name: shake;
+}
+.forgot {
+  margin-top: 30px;
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  font-weight: bold;
+}
+.forgot:hover {
+  margin-top: 30px;
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  font-weight: bold;
+  color: #6D7781;
+}
+::-webkit-input-placeholder {
+  color: lightgrey;
+  font-size: 12px;
+}
+.animated {
+  animation-fill-mode: both;
+  animation-duration: 1s;
+}
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-10px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(10px);
+  }
+}
+</style>
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet' type='text/css'>
+
+
+<div class='login'>
+  <h2>Edit Dealer:{{loan.dealer_name}}</h2>
+  <form>
+  <input type="hidden"  ng-model="loan.sno" value="{{loan.sno}}" >
+ <label>Dealername</label>
+  <input type="text"  ng-model="loan.dealer_name" value="{{loan.dealer_name}}" >
+ 
+    <input type="hidden"  ng-model="loan.dealer_pwd" value="{{loan.dealer_pwd}}">
+  <label>Email</label>
+  <input type="text"  ng-model="loan.dealer_email" value="{{loan.dealer_email}}" disabled>
+  <label>Mobile</label>
+  <input type="text"  ng-model="loan.dealer_mobile" value="{{loan.dealer_mobile}}" disabled >
+  <label>Shopname</label>
+	<input type="text"  ng-model="loan.dealer_shopname" value="{{loan.dealer_shopname}}">
+	 
+	 <input type="hidden"  ng-model="loan.dealer_type" value="{{loan.dealer_type}}">
+  <label>State</label>
+ <input type="text"  ng-model="loan.dealer_state" value="{{loan.dealer_state}}">
+  <label>City</label>
+	 <input type="text"  ng-model="loan.dealer_city" value="{{loan.dealer_city}}">
+	
+	<label>Area</label>
+   <input type="text"  ng-model="loan.dealer_area" value="{{loan.dealer_area}}">
+   <label>Pincode</label> 
+	 <input type="text"  ng-model="loan.dealer_pincode" value="{{loan.dealer_pincode}}">
+	<button  type="button" class="btn btn-success"  ng-click="edit()" >submit</button> 
+  
+ <br>
+ <br>
+  </form>
+
+</div>

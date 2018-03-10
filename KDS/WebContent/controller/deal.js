@@ -16,14 +16,9 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 	},function(response){
 		console.log(response.data)
 		console.log(response.status)
-    	if(response.status==415){
-    		/*$scope.error=response.data*/
-			$location.path('/login')
-		}
-    	else if(response.status==401){
-    		/*$scope.error=response.data*/
-			$location.path('/login')
-		}
+		$scope.error=response.data
+	console.log(response.status)
+    	 $location.path('/login')
 	})
 	}
 
@@ -31,6 +26,7 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 		DealerService.getlist().then(function(response) {
 			console.log(response.data)
 			console.log(response.status)
+			 
 			$scope.deal = response.data
 		}, function(response) {
 			console.log(response.status)
@@ -67,26 +63,20 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 		})
 	}
 	
-	$scope.loanlimit=function(loan){	
-		console.log("hi===="+$scope.loan)
-		DealerService.loanlimit($scope.loan).then(function(response){
-			console.log(response.data)
-			console.log(response.status)
-			alert('Updated successfully')
-			$location.path('/dealerlist')
-		},function(response){
-			if(response.status==401){
-				$location.path('/dealerlist')
-			}
-			else{
-				/*$scope.error=response.data*/
-				$location.path('/dealerlist')
-				}			
-			console.log(response.data)
-			console.log(response.status)
-	})
-		}
+		
+	$scope.sortData=function(Dealername){	
+		$scope.reverseSort=($scope.sortColumn==Dealername)? !$scope.reverseSort:false;
+		$scope.sortColumn=Dealername;
+	}
 	
+	$scope.getsortClass=function(Dealername){	
+		if($scope.sortColumn==Dealername){
+			 return $scope.reverseSort ? 'arrow-down':'arrow-up';
+			
+		}
+		return '';
+	}
+
 	
 	getlist()
 	list()

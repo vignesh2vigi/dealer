@@ -13,10 +13,16 @@
             <input class="form-control" ng-model="log.admin_password"  placeholder="Password" type="password" name="password" required>
              <span class="error" ng-show="(theForm.$dirty||submitted) && theForm.password.$error.required">Password is required</span>
           </div>
+          
 		  <div class="form-group">
 		  <button type="submit" ng-click="login()" class="submit-btn">Submit</button>
+		   
 		  </div>
-		  
+		  <span class="text-danger" style='color:red' ng-if="error.code==1">{{error.message}}</span>
+		  <span class="text-danger" style='color:red' ng-if="error.code==2">{{error.message}}</span>
+		  <span class="text-danger" style='color:red' ng-if="error.code==3">{{error.message}}</span>
+		  <!-- <span  style="color:red">{{ error }}</span>
+		  <span class="text-danger" style="color:red">{{ error1 }}</span> -->
         </form>
       </div>
     </div>
