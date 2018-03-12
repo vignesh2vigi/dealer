@@ -62,7 +62,7 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 			}
 		})
 	}
-	
+
 		
 	$scope.sortData=function(Dealername){	
 		$scope.reverseSort=($scope.sortColumn==Dealername)? !$scope.reverseSort:false;

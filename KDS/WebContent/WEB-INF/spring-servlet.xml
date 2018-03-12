@@ -44,5 +44,8 @@
 	<bean id="kdsServices" class="com.kuwy.kds.serviceImpl.KdsServicesImpl"></bean>
 
 	<bean id="kdsDao" class="com.kuwy.kds.daoImpl.KdsDaoImpl"></bean>
+	<bean id="vehicleService" class="com.kuwy.kds.serviceImpl.VehicleServiceImpl"></bean>
+
+	<bean id="vehicleDao" class="com.kuwy.kds.daoImpl.VehicleDaoImpl"></bean>
 
 </beans>

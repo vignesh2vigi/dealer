@@ -455,6 +455,8 @@ System.out.println("reject Update query=========="+insertDealerReg_query);
 		}
 		return dealerRegLoginOutObj;
 	}
+
+	
 		
 		 
 	

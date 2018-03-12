@@ -1,7 +1,4 @@
 /**
- * 
- */
-/**
  * dirPagination - AngularJS module for paginating (almost) anything.
  *
  *
@@ -640,55 +637,3 @@
         };
     }
 })();
-
-
-$('#log23').click(
-		function() {
-	
-			var StepOne = false;
-$(document).ready(
-		function() {
-			var user = $("#log24").val();
-			var pass = $("#log25").val();
-			if (isNull(user)) {
-				$("#usErrormsg").html('Select Reg No');
-				$("#usErrormsg").focus();
-				StepOne=true;
-			}	
-			if (isNull(pass)) {
-				$("#pasErrormsg").html('Select Year');
-				$("#pasErrormsg").focus();
-				StepOne=true;
-			}
-		});
-$('#log24').change(function (event){
-	var user = $("#log24").val();
-	
-
-if (isNull(user)) {
-	
-	$("#usErrormsg").html('Select Reg No');
-	$("#usErrormsg").focus();
-	StepOne=true;
-}else{
-	
-	$("#usErrormsg").html('Select Reg No');
-	$("#usErrormsg").empty();
-	StepOne=false;
-}
-});
-$('#log25').change(function (event){
-	var pass = $("#log25").val();
-	
-if (isNull(pass)) {
-	
-	$("#pasErrormsg").html('Select HP');
-	StepOne=true;
-}
-else{
-	
-	$("#pasErrormsg").empty();
-	StepOne=false;
-}
-});
-		});

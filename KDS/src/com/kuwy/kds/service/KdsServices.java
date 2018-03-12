@@ -19,4 +19,5 @@ public interface KdsServices {
 	public boolean valid(String admin_id);
 	public boolean validpass(String admin_password);
 	public KdsModel edit(KdsModel edit);
+	
 }

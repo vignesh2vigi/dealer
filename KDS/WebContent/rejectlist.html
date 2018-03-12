@@ -45,8 +45,12 @@ input[type="text"], input[type="password"], input[type="email"] {
 </style>
 
 <br>
-<input type="text" ng-model="searchTxt" placeholder="search">
+<br>
+<input type="text" ng-model="searchTxt" uib-typeahead="loan.dealer_name for loan in rjt | filter:$viewValue | limitTo:8" class="form-control">
+<pre ng-bind-template="Model: {{searchTxt | json}}"></pre>
 <br><br>
+<!-- <input type="text" ng-model="searchTxt" placeholder="search">
+<br><br> -->
 <div id="exportable">
 
 <table class="table table-striped">

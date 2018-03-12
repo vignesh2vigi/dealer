@@ -1,7 +1,7 @@
 /**
  * 
  */
-var app = angular.module("app", [ 'ngRoute','ngCookies','angularUtils.directives.dirPagination'])
+var app = angular.module("app", [ 'ngRoute','ngCookies','angularUtils.directives.dirPagination','ngAnimate', 'ui.bootstrap'])
 app.config(function($routeProvider) {
 
 	$routeProvider

@@ -102,9 +102,15 @@ input[type="submit"]:hover {
     border-top: 1px solid #191717;
 }
 </style>
-<input type="text" ng-model="searchTxt" placeholder="search">
+<br>
+<br>
+<input type="text" ng-model="searchTxt" uib-typeahead="loan.dealer_name for loan in deal | filter:$viewValue | limitTo:6" class="form-control">
+<pre ng-bind-template="Model: {{searchTxt | json}}"></pre>
 <br><br>
+<!-- <input type="text" ng-model="searchTxt" placeholder="search">
+<br><br> -->
 <div id="exportable">
+
 <table class="table table-striped">
 <thead>
 <tr>
@@ -130,6 +136,11 @@ input[type="submit"]:hover {
 </tr>
 </thead>
 <tbody >
+<!-- <select ng-model="items">
+  <option value="2" >2</option>
+  <option value="4">4</option>
+  <option value="5">30</option>
+</select> -->
 <tr dir-paginate="loan in deal | filter:searchTxt | orderBy:sortColumn:reverseSort| itemsPerPage:5">
 
 <td>{{loan.dealer_name}}</td>

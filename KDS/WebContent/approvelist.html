@@ -42,16 +42,35 @@ input[type="text"], input[type="password"], input[type="email"] {
 }
 
 </style>
-{{selectedItem}}
+
+<select ng-model="items">
+<option value="" >All</option>
+  <option value="2" >2</option>
+  <option value="4">4</option>
+  <option value="30">30</option>
+</select>
+ 
+ <!-- Phone No:{{selectedItem}}
+ 
+
 <select  ng-model="selectedItem" ng-change="val()">
+
 <option value="">Select Dealer name</option>
 <option ng-repeat="loan in ape" ng-selected="selectedItem == loan.dealer_mobile"  value="{{loan.dealer_mobile}}">{{loan.dealer_name}}</option>
 </select>
 <br>
-<input type="text" ng-model="searchTxt" placeholder="search">
+<input type="text" ng-model="searchTxt" placeholder="search"> -->
+<br>
+<br>
+<input type="text" ng-model="searchTxt" uib-typeahead="loan.dealer_name for loan in ape | filter:$viewValue | limitTo:6" class="form-control">
+<pre ng-bind-template="Model: {{searchTxt | json}}"></pre>
 <br><br>
+ <!--  <typeahead data-ng-model="selecteds" items="ape" displaytag="name" displayitem="name">
+        </typeahead>  -->
+    
 <div id="exportable">
 <table ng-table ="usersTable" class="table table-striped">
+
 <thead>
 <tr>
 
@@ -71,7 +90,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 </tr>
 </thead>
 <tbody >
-<tr dir-paginate="loan in ape | filter:searchTxt | itemsPerPage:3" >
+<tr dir-paginate="loan in ape | filter:searchTxt | itemsPerPage: items" >
 
 <td>{{loan.dealer_name}}</td>
 <td>{{loan.dealer_mobile}}</td>
