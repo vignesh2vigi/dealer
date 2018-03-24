@@ -9,12 +9,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.kuwy.kds.dao.VehicleDao;
 
+import com.kuwy.kds.dao.VehicleDao;
 import com.kuwy.kds.model.vehicle;
 
 public class VehicleDaoImpl implements VehicleDao {
-
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -25,21 +24,27 @@ public class VehicleDaoImpl implements VehicleDao {
 	@Override
 	public vehicle insert(vehicle insert) {
 		// TODO Auto-generated method stub
+		boolean upflg=false;
 		vehicle dealerRegLoginOutObj = new vehicle();
+		
 		try {
 			/*Timestamp ts = new Timestamp(System.currentTimeMillis());*/
 System.out.println(""+insert.getRegno());
 			int insertDealerReg_int = 0;
-			String insertDealerReg_query = "INSERT INTO kuwy_dealer_stock_upload (regno,category,make,model,variant,fuel,transmission) VALUES (?, ?, ?, ?, ?, ?,?)";
+			String insertDealerReg_query = "INSERT INTO kuwy_dealer_stock_upload (regno,category,make,model,variant,fuel,transmission) VALUES (?,?,?,?,?,?,?)";
 System.out.println("query=========="+insertDealerReg_query);
 			insertDealerReg_int = this.jdbcTemplate.update(
 					insertDealerReg_query,
 					new Object[] { insert.getRegno(),insert.getCategory(),insert.getMake(),insert.getModel(),insert.getVariant(),insert.getFuel(),insert.getTransmission()});
-			
+			if (insertDealerReg_int > 0) {
+				dealerRegLoginOutObj.setMessage("success");
+			} else {
+				dealerRegLoginOutObj.setMessage("fail");
+			}
 			
 		} catch (DataAccessException e) {
 			System.out.println(e.getLocalizedMessage());
-			
+			dealerRegLoginOutObj.setMessage(e.getMessage());
 		}
 		List<vehicle> bankModelObjArray = new ArrayList<vehicle>(); 
 		String query = "SELECT MAX(sno) AS sno FROM kuwy_dealer_stock_upload"; 
@@ -47,6 +52,8 @@ System.out.println("query=========="+insertDealerReg_query);
 	
 		bankModelObjArray = getJdbcTemplate().query(query, new BeanPropertyRowMapper(vehicle.class)); 
 		
+			dealerRegLoginOutObj.setSno(bankModelObjArray.get(0).getSno());
+						
 	
 		System.out.println("sno==========="+dealerRegLoginOutObj.getSno());
 		try {
@@ -70,13 +77,11 @@ System.out.println("query=========="+insertDealerReg_query);
 		System.out.println("query2"+query1);
 	
 		bankModelObjArray = getJdbcTemplate().query(query1, new BeanPropertyRowMapper(vehicle.class)); 
-		
-		System.out.println("sno2===45======="+dealerRegLoginOutObj.getVehicle_id());
+		dealerRegLoginOutObj.setVehicle_id(bankModelObjArray.get(0).getVehicle_id());
+		System.out.println("sno2======="+dealerRegLoginOutObj.getVehicle_id());
 
 		try {
-			Timestamp ts = new Timestamp(System.currentTimeMillis());
-
-			int insertDealerReg_int = 0;
+				int insertDealerReg_int = 0;
 			String insertDealerReg_query = "INSERT INTO kuwy_vehicle_image (veh_det_id,image) VALUES (?,?)";
 	System.out.println("query=========="+insertDealerReg_query);
 			insertDealerReg_int = this.jdbcTemplate.update(
@@ -84,15 +89,18 @@ System.out.println("query=========="+insertDealerReg_query);
 					new Object[] {dealerRegLoginOutObj.getVehicle_id(),insert.getImage()});
 			
 			if (insertDealerReg_int > 0) {
-				dealerRegLoginOutObj.setStatus("success");
+				dealerRegLoginOutObj.setMessage("success");
+				upflg=true;
 			} else {
-				dealerRegLoginOutObj.setStatus("failure");
+				dealerRegLoginOutObj.setMessage("failure");
 			}
 		} catch (DataAccessException e) {
-			System.out.println(e.getLocalizedMessage());
-			
+			System.out.println(e.getLocalizedMessage());	
 		}
 		
+		if(upflg){
+			System.out.println("flg====="+upflg);
+		}
 		
 		return dealerRegLoginOutObj;
 	}

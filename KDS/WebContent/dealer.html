@@ -102,10 +102,19 @@ input[type="submit"]:hover {
     border-top: 1px solid #191717;
 }
 </style>
+<select ng-model="items">
+<option value="" >All</option>
+  <option value="2" >2</option>
+  <option value="6">6</option>
+  <option value="30">30</option>
+</select>
 <br>
 <br>
-<input type="text" ng-model="searchTxt" uib-typeahead="loan.dealer_name for loan in deal | filter:$viewValue | limitTo:6" class="form-control">
-<pre ng-bind-template="Model: {{searchTxt | json}}"></pre>
+
+<div class="time">
+Current Time: <b>{{ptime}}</b></div>
+<input type="text" ng-model="searchTxt"  placeholder="search" uib-typeahead="loan.dealer_name for loan in deal | filter:$viewValue | limitTo:6" class="form-control">
+<!-- <pre ng-bind-template="Model: {{searchTxt | json}}"></pre> -->
 <br><br>
 <!-- <input type="text" ng-model="searchTxt" placeholder="search">
 <br><br> -->
@@ -141,7 +150,7 @@ input[type="submit"]:hover {
   <option value="4">4</option>
   <option value="5">30</option>
 </select> -->
-<tr dir-paginate="loan in deal | filter:searchTxt | orderBy:sortColumn:reverseSort| itemsPerPage:5">
+<tr dir-paginate="loan in deal | filter:searchTxt | orderBy:sortColumn:reverseSort| itemsPerPage:items">
 
 <td>{{loan.dealer_name}}</td>
 <td>{{loan.dealer_mobile}}</td>
@@ -176,10 +185,10 @@ input[type="submit"]:hover {
 <td>{{loan.regdate}}</td>
 <td>
 <div ng-if="loan.activation_status == '0'">
-    Inactive
+    <mark class="inac" style="background-color: #dc2219">Inactive</mark>
 </div>
 <div ng-if="loan.activation_status == '1'">
-    active
+   <mark class="ac" style="background-color: #004d40">active</mark>
 </div>
 
 </td>
@@ -198,14 +207,14 @@ input[type="submit"]:hover {
 </tr>
 </tbody>
 </table>
-
-<dir-pagination-controls
-            max-size="8"
-            direction-links="true"
-            boundary-links="true" >
+  <br/>
+  
+<dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" >
         </dir-pagination-controls>
+        <!-- <a href="https://www.indiancompany.info/company/kuwy-technology-service-private-limited">Google</a> -->
+        <br><br><br/>
 </div>
-<a href="https://www.indiancompany.info/company/kuwy-technology-service-private-limited">Google</a>
+
   <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog">
     

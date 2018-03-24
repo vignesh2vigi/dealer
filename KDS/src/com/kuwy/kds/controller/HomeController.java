@@ -146,6 +146,11 @@ public ResponseEntity<?> logout(HttpSession session){
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> edit(@RequestBody KdsModel edit,HttpSession session) {
+		String admin_username=(String)session.getAttribute("admin_username");
+		 if(admin_username==null){
+			
+			return new ResponseEntity<Error>(HttpStatus.UNAUTHORIZED);
+		}
 		System.out.println("loan=================="+edit.getSno());
 		KdsModel ks=kdsServices.edit(edit);
 		return new ResponseEntity<KdsModel>(ks,HttpStatus.OK);

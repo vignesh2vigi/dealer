@@ -1,7 +1,7 @@
 /**
  * 
  */
-app.controller('DealerController',function($scope,DealerService,$location,$rootScope,$cookieStore){
+app.controller('DealerController',function($scope,DealerService,$location,$rootScope,$cookieStore,$interval){
 
 	
 	$scope.login=function(){
@@ -28,6 +28,7 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 			console.log(response.status)
 			 
 			$scope.deal = response.data
+			$scope.items = 3;
 		}, function(response) {
 			console.log(response.status)
 			if(response.status==401){
@@ -62,8 +63,14 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 			}
 		})
 	}
-
-		
+	$scope.current_title = 'www.tutorialspoint.com/';
+    $scope.current_description = 'www.tutorialspoint.com/';
+    
+	$scope.ptime = new Date().toLocaleTimeString();
+	$interval(function () {
+	$scope.ptime = new Date().toLocaleTimeString();
+	}, 1000)
+	
 	$scope.sortData=function(Dealername){	
 		$scope.reverseSort=($scope.sortColumn==Dealername)? !$scope.reverseSort:false;
 		$scope.sortColumn=Dealername;

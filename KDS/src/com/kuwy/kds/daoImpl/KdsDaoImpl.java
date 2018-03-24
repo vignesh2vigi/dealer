@@ -246,7 +246,6 @@ System.out.println("Query==="+insertDealerReg_query);
 					bank.setStatus(false);
 					}
 			return bank; 			
-			
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -368,7 +367,7 @@ System.out.println("reject Update query=========="+insertDealerReg_query);
         KdsModel custVehiDetailsOutObj = new KdsModel();
         List<KdsModel> custDetailsList = new ArrayList<KdsModel>();
 		String pendingQuery = "SELECT dealer_name,dealer_mobile,dealer_email,dealer_pwd,dealer_shopimages,dealer_shopname,dealer_type,dealer_pan,dealer_aadhaar,dealer_area,dealer_city,dealer_state,dealer_pincode,dealer_geo_address,dealer_sign,remark FROM kuwy_dealer_login_reg WHERE activation_status='0' AND remark IS NOT NULL";
-		System.out.println("pendingQuery------------------------------------->"+pendingQuery);
+		System.out.println("pendingQuery--------------------------------->"+pendingQuery);
 		try {
 			
 			custDetailsList = this.jdbcTemplate.query(pendingQuery,new BeanPropertyRowMapper(KdsModel.class));

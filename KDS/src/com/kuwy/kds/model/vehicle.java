@@ -3,6 +3,13 @@ package com.kuwy.kds.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@XmlRootElement
+@JsonInclude(Include.NON_DEFAULT)
 public class vehicle {
 
 	private int sno;
@@ -47,6 +54,13 @@ public class vehicle {
 	private String active_status;
 	private String status;
 	private String image;
+	private String message;
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	public String getImage() {
 		return image;
 	}

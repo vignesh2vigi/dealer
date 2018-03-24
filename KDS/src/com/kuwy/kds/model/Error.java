@@ -1,5 +1,7 @@
 package com.kuwy.kds.model;
 
+
+
 public class Error {
 
 		private int code;

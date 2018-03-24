@@ -23,10 +23,9 @@ public class VehicleController {
 	
 	@RequestMapping(value = "/vehicle", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<vehicle> dealerRegistration(@RequestBody vehicle insert) {
-		System.out.println("vehicle");
+		System.out.println("vehicle=====");
 		vehicle dealerRegLoginObj = vehicleService.insert(insert);
-		return new ResponseEntity<vehicle>(dealerRegLoginObj,
-				HttpStatus.OK);
+		return new ResponseEntity<vehicle>(dealerRegLoginObj,HttpStatus.OK);
 	}
 	
 	

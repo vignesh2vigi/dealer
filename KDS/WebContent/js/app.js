@@ -1,14 +1,13 @@
 /**
  * 
  */
-var app = angular.module("app", [ 'ngRoute','ngCookies','angularUtils.directives.dirPagination','ngAnimate', 'ui.bootstrap'])
+var app = angular.module("app", [ 'ngRoute','ngCookies','angularUtils.directives.dirPagination','ngAnimate','ui.bootstrap','ngSocial'])
 app.config(function($routeProvider) {
 
 	$routeProvider
 	.when("/login", {
         templateUrl : 'log.html',
         controller:'DealerController'
-       
         })
    .when("/dealerlist", {
         templateUrl : 'dealer.html',

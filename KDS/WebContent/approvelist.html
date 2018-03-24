@@ -1,48 +1,5 @@
-<style>
-.pagination>li>a, .pagination>li>span {
-    position: relative;
-    float: left;
-    padding: 7px 34px;
-    margin-left: 0px;
-    line-height: 1.42857143;
-    color: #0e0e0e;
-    text-decoration: none;
-    background-color: #fff;
-    border: 1px solid #0c0c0c;
-}
-input[type="text"], input[type="password"], input[type="email"] {
-  width: 350px;
-  padding: 20px 0px;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #435160;
-  outline: none;
-  color: #212121;
-  font-size: 16px;
-}
-.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {
-    color: #0e0e0e;
-    cursor: not-allowed;
-    background-color: #fff;
-    border-color: #191818;
-}
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #191717;
-}
-.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-    z-index: 3;
-    color: #fff;
-    cursor: default;
-    background-color: #191b1d;
-    border-color: #020f1b;
-}
-
-</style>
-
+ <link href="css/table.css" media="all" rel="stylesheet" type="text/css"/>
 <select ng-model="items">
 <option value="" >All</option>
   <option value="2" >2</option>
@@ -62,8 +19,8 @@ input[type="text"], input[type="password"], input[type="email"] {
 <input type="text" ng-model="searchTxt" placeholder="search"> -->
 <br>
 <br>
-<input type="text" ng-model="searchTxt" uib-typeahead="loan.dealer_name for loan in ape | filter:$viewValue | limitTo:6" class="form-control">
-<pre ng-bind-template="Model: {{searchTxt | json}}"></pre>
+<input type="text" ng-model="searchTxt" placeholder="search" uib-typeahead="loan.dealer_name for loan in ape | filter:$viewValue | limitTo:6" class="form-control">
+<!-- <pre ng-bind-template="Model: {{searchTxt | json}}"></pre> -->
 <br><br>
  <!--  <typeahead data-ng-model="selecteds" items="ape" displaytag="name" displayitem="name">
         </typeahead>  -->

@@ -1,7 +1,7 @@
 /**
  * 
  */
-app.controller('DealerAppController',function($scope,DealerService,$location,$rootScope,$cookieStore,$routeParams){
+app.controller('DealerAppController',function($scope,DealerService,$location,$rootScope,$cookieStore,$routeParams,$interval){
 	
 	var dealer_mobile=$routeParams.dealer_mobile
 	DealerService.ape(dealer_mobile).then(function(response){
@@ -61,8 +61,18 @@ app.controller('DealerAppController',function($scope,DealerService,$location,$ro
 	})
 	
 		}
+	$scope.current_title = 'www.kuwy.com/';
+    $scope.current_description = 'get car in 3 mins';
+    
+	$scope.ptime = new Date().toLocaleTimeString();
+	$interval(function () {
+	$scope.ptime = new Date().toLocaleTimeString();
+	}, 1000)
 	
-
+	$scope.sortData=function(Dealername){	
+		$scope.reverseSort=($scope.sortColumn==Dealername)? !$scope.reverseSort:false;
+		$scope.sortColumn=Dealername;
+	}
 
 	$scope.reject=function(loan){	
 		console.log("hi===="+$scope.selectedItem)
@@ -91,7 +101,9 @@ app.controller('DealerAppController',function($scope,DealerService,$location,$ro
 		DealerService.getlist().then(function(response) {
 			console.log(response.data)
 			console.log(response.status)
+			 
 			$scope.deal = response.data
+			$scope.items = 4;
 		}, function(response) {
 			console.log(response.status)
 			if(response.status==401){
