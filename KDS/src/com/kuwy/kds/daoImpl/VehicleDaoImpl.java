@@ -10,7 +10,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 
+
+
 import com.kuwy.kds.dao.VehicleDao;
+import com.kuwy.kds.model.KdsModel;
+import com.kuwy.kds.model.dealership;
 import com.kuwy.kds.model.vehicle;
 
 public class VehicleDaoImpl implements VehicleDao {
@@ -66,7 +70,12 @@ System.out.println("query=========="+insertDealerReg_query);
 					insertDealerReg_query,
 					new Object[] { insert.getChassis_no(),dealerRegLoginOutObj.getSno(),insert.getEngine_no(),insert.getRto_no(),insert.getRc_details(),insert.getOwnership(),insert.getKms(),insert.getManufacture_year(),insert.getColour(),insert.getInsurance(),insert.getInsurance_validity(),insert.getDealer_id(),ts,insert.getListing_strategy(),insert.getMarket_price(),insert.getDealer_price(),insert.getMarket_price_discount(),insert.getNesosintion(),insert.getStatus_flag(),insert.getActive_status()});
 			
-			
+			if (insertDealerReg_int > 0) {
+				dealerRegLoginOutObj.setMessage("success");
+				upflg=true;
+			} else {
+				dealerRegLoginOutObj.setMessage("failure");
+			}
 		} catch (DataAccessException e) {
 			System.out.println(e.getLocalizedMessage());
 			
@@ -76,8 +85,8 @@ System.out.println("query=========="+insertDealerReg_query);
 		String query1 = "SELECT MAX(sno) AS vehicle_id FROM kuwy_vehicle_detail"; 
 		System.out.println("query2"+query1);
 	
-		bankModelObjArray = getJdbcTemplate().query(query1, new BeanPropertyRowMapper(vehicle.class)); 
-		dealerRegLoginOutObj.setVehicle_id(bankModelObjArray.get(0).getVehicle_id());
+		bankModelObjArray1 = getJdbcTemplate().query(query1, new BeanPropertyRowMapper(vehicle.class)); 
+		dealerRegLoginOutObj.setVehicle_id(bankModelObjArray1.get(0).getVehicle_id());
 		System.out.println("sno2======="+dealerRegLoginOutObj.getVehicle_id());
 
 		try {
@@ -102,6 +111,35 @@ System.out.println("query=========="+insertDealerReg_query);
 			System.out.println("flg====="+upflg);
 		}
 		
+		return dealerRegLoginOutObj;
+	}
+
+	@Override
+	public dealership accessSignupSheet(dealership bankModel) {
+		// TODO Auto-generated method stub
+		dealership dealerRegLoginOutObj = new dealership();
+		try {
+			/*Timestamp ts = new Timestamp(System.currentTimeMillis());*/
+System.out.println("accces"+bankModel.getMobile_no());
+			int insertDealerReg_int = 0;
+			String insertDealerReg_query = "INSERT INTO kuwy_dealer_login_reg (dealer_pwd) VALUES (?)";
+
+			insertDealerReg_int = this.jdbcTemplate.update(
+					insertDealerReg_query,
+					new Object[] { bankModel.getUserid()
+							 });
+			if (insertDealerReg_int > 0) {
+				
+				dealerRegLoginOutObj.setStatus("Dealer Register Successfully...!");
+			} else {
+				
+				dealerRegLoginOutObj.setStatus("Dealer Register UnSuccessful...!");
+			}
+		} catch (DataAccessException e) {
+			System.out.println(e.getLocalizedMessage());
+			
+		}
+
 		return dealerRegLoginOutObj;
 	}
 	

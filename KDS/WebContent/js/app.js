@@ -9,6 +9,10 @@ app.config(function($routeProvider) {
         templateUrl : 'log.html',
         controller:'DealerController'
         })
+        .when("/entrydealerlist", {
+        templateUrl : 'entrydealer.html',
+        controller :'DealerController'	
+        })
    .when("/dealerlist", {
         templateUrl : 'dealer.html',
         controller :'DealerController'	

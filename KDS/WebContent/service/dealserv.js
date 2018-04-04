@@ -3,7 +3,7 @@
  */
 app.factory('DealerService',function($http){
 	var dealerService={}
-	var BASE_URL="http://localhost:9080/KDS"
+	var BASE_URL="http://localhost:8080/KDS"
 	
 		dealerService.getlist=function()
 	{
@@ -39,11 +39,24 @@ app.factory('DealerService',function($http){
 	{
 	return $http.get(BASE_URL+"/servlet/logout")
 	}
-	dealerService.ape=function(sno)
+	dealerService.ape=function(dealer_mobile)
 	{
-	return $http.get(BASE_URL+"/servlet/approve/"+sno)
+	return $http.get(BASE_URL+"/servlet/approve/"+dealer_mobile)
 	}
 	
+	
+	dealerService.regDetailsList=function()
+	{
+	return $http.get(BASE_URL+"/servlet/dealershiplist")
+	}
+	
+	dealerService.accept=function(accept){
+		return $http.post(BASE_URL +"/servlet/active",accept)
+	}
+	
+	dealerService.register=function(register){
+		return $http.post(BASE_URL +"/servlet/dealerRegistration",register)
+	}
 	return dealerService;
 	
 })

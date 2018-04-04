@@ -37,6 +37,49 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 			}
 		})
 	}
+	function regDetailsList() {
+		DealerService.regDetailsList().then(function(response) {
+			//
+			console.log("data-------------->"+response.data.respObj.regDetailsList);
+	
+			$scope.dealer = response.data.respObj.regDetailsList;
+			
+		}, function(response) {
+			console.log(response.status)
+			if(response.status==401){
+	    	
+				$location.path('/login')
+			}
+		})
+	}
+	
+	$scope.accept=function(userid,name,mobile_no){
+		console.log("id"+userid)
+		console.log("name"+name)
+		var user_id=userid;
+	
+		console.log("second id"+user_id)
+		DealerService.accept({"userid":user_id,"active_status":"1"}).then(function(response){
+			
+			$location.path('/entrydealerlist')
+		},function(response){
+			if(response.status==401)
+				$location.path('/login')
+			else
+			console.log(response.status)
+		})
+		
+			DealerService.register({"userid":user_id,"name":name,"mobile_no":mobile_no}).then(function(response){
+			
+			$location.path('/entrydealerlist')
+		},function(response){
+			if(response.status==401)
+				$location.path('/login')
+			else
+			console.log(response.status)
+		})
+	}
+	
 	function list() {
 		DealerService.list().then(function(response) {
 			console.log(response.data)
@@ -63,8 +106,8 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 			}
 		})
 	}
-	$scope.current_title = 'www.tutorialspoint.com/';
-    $scope.current_description = 'www.tutorialspoint.com/';
+	$scope.current_title = 'www.kuwy.in/';
+    $scope.current_description = 'www.kuwy.in/';
     
 	$scope.ptime = new Date().toLocaleTimeString();
 	$interval(function () {
@@ -84,7 +127,7 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 		return '';
 	}
 
-	
+	regDetailsList()
 	getlist()
 	list()
 	deallist()

@@ -383,12 +383,12 @@ System.out.println("reject Update query=========="+insertDealerReg_query);
 	@Override
 	public boolean valid(String admin_id) {
 		// TODO Auto-generated method stub
-		System.out.println("adminId====="+admin_id);
+		System.out.println("adminId======================"+admin_id);
 		KdsModel bank = new KdsModel();
 		List<KdsModel> bankModelObjArray = new ArrayList<KdsModel>(); 
 		String query = "SELECT admin_id FROM kuwy_dealer_admin_log WHERE admin_id='"+admin_id+"'"; 
-		System.out.println("admin id check====="+query);
-	
+		System.out.println("admin id check==============="+query);
+	                                        
 		bankModelObjArray = getJdbcTemplate().query(query, new BeanPropertyRowMapper(KdsModel.class)); 
 		if (bankModelObjArray.size() > 0) {
 			bank.setStatus(true);
@@ -411,7 +411,6 @@ System.out.println("reject Update query=========="+insertDealerReg_query);
 		List<KdsModel> bankModelObjArray = new ArrayList<KdsModel>(); 
 		String query = "SELECT admin_password FROM kuwy_dealer_admin_log WHERE admin_password='"+admin_password+"'"; 
 		System.out.println("admin_password check====="+query);
-	
 		bankModelObjArray = getJdbcTemplate().query(query, new BeanPropertyRowMapper(KdsModel.class)); 
 		if (bankModelObjArray.size() > 0) {
 			bank.setStatus(true);

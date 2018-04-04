@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kuwy.kds.model.Error;
 import com.kuwy.kds.model.KdsModel;
 import com.kuwy.kds.service.KdsServices;
-import com.kuwy.kds.model.Error;
 
 @Controller
 public class HomeController {
@@ -24,13 +24,13 @@ public class HomeController {
 	@Autowired
 	private KdsServices kdsServices;
 	
-	@RequestMapping(value = "/dealerRegistration", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<KdsModel> dealerRegistration(@RequestBody KdsModel info) {
+/*	@RequestMapping(value = "/dealerRegistration", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<dealership> dealerRegistration(@RequestBody dealership info) {
 		System.out.println("dealerRegistration");
-		KdsModel dealerRegLoginObj = kdsServices.accessSignupSheet(info);
-		return new ResponseEntity<KdsModel>(dealerRegLoginObj,
+		dealership dealerRegLoginObj = kdsServices.accessSignupSheet(info);
+		return new ResponseEntity<dealership>(dealerRegLoginObj,
 				HttpStatus.OK);
-	}
+	}*/
 	
 	@RequestMapping(value = "/loanlimit", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> loanlimit(@RequestBody KdsModel loan,HttpSession session) {

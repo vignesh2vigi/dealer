@@ -33,8 +33,9 @@ public class JerseyClient {
 				.post(Entity.entity(json, MediaType.APPLICATION_JSON),
 						Response.class);
 		String result = response.readEntity(String.class);
-		//System.out.println("[" + baseUri + "] Response for URL: Response:"
-		//		+ result);
+		System.out.println("[" + baseUri + "] Response for URL: Response:"
+			+ result);
+		
 		response.close();
 		return result;
 	}
@@ -51,4 +52,19 @@ public class JerseyClient {
 		}
 		return response;
 	}
+
+	public static String getRequest(String dealer) throws Exception{
+		// TODO Auto-generated method stub
+		String response = null;
+		
+		try {
+			Client client = ClientBuilder.newClient();
+			WebTarget target = client.target("http://192.168.1.12:9080/DEALER_SIGNUP/servlet/fetchRegDetails");
+			response = target.request().get(String.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
 }

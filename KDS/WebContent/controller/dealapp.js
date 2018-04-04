@@ -42,9 +42,8 @@ app.controller('DealerAppController',function($scope,DealerService,$location,$ro
 		console.log("edit===="+$scope.loan.sno)
 
 	DealerService.edit($scope.loan).then(function(response){
-	console.log(response.data)		
+	        console.log(response.data)		
 			console.log(response.status)
-		
 			$location.path('/dealerlist')
 		}
 		
@@ -61,7 +60,7 @@ app.controller('DealerAppController',function($scope,DealerService,$location,$ro
 	})
 	
 		}
-	$scope.current_title = 'www.kuwy.com/';
+	$scope.current_title = 'www.kuwy.com';
     $scope.current_description = 'get car in 3 mins';
     
 	$scope.ptime = new Date().toLocaleTimeString();
