@@ -59,7 +59,7 @@ public class JerseyClient {
 		
 		try {
 			Client client = ClientBuilder.newClient();
-			WebTarget target = client.target("http://192.168.1.12:9080/DEALER_SIGNUP/servlet/fetchRegDetails");
+			WebTarget target = client.target("http://other.kuwy.in/servlet/fetchRegDetails");
 			response = target.request().get(String.class);
 		} catch (Exception e) {
 			e.printStackTrace();

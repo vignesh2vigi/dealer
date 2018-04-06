@@ -1,4 +1,4 @@
-<table ng-table ="usersTable" class="table table-striped">
+<!-- <table ng-table ="usersTable" class="table table-striped">
 <thead>
 <tr>
 <td>User id</td>
@@ -62,7 +62,103 @@
 <td>{{deal.latitude}}</td>
 <td>{{deal.taluk}}</td>
 <td>{{deal.dealer_license_no}}</td>
-<td><a class="btn btn-success" ng-click="accept(deal.userid,deal.name,deal.mobile_no,deal.dealership_name,deal.pan_no,deal.state,deal.district,deal.image,deal.login_type,deal.dealership_type)">accept</a></td>
+<td><a class="btn btn-success" ng-click="accept(deal)">accept</a></td>
 </tr>
 </tbody>
 </table>
+
+
+
+ -->
+
+<link href="css/table.css" media="all" rel="stylesheet" type="text/css"/>
+<select ng-model="items">
+<option value="" >All</option>
+  <option value="2" >2</option>
+  <option value="4">4</option>
+  <option value="30">30</option>
+</select>
+
+
+
+<br>
+<br>
+<input type="text" ng-model="searchTxt" placeholder="search" uib-typeahead="deal.name for deal in dealer | filter:$viewValue | limitTo:6" class="form-control">
+<!-- <pre ng-bind-template="Model: {{searchTxt | json}}"></pre> -->
+<br><br>
+ <!--  <typeahead data-ng-model="selecteds" items="ape" displaytag="name" displayitem="name">
+        </typeahead>  -->
+    
+<div id="exportable">
+<table ng-table ="usersTable" class="table table-striped">
+<thead>
+<tr>
+<!-- <td>User id</td> -->
+<td>Name</td>
+<td>dealership_name</td>
+<!-- <td>credit_amt</td> -->
+<td>dealership_type</td>
+<td>pan_no</td>
+<!-- <td>dealer_landline</td> -->
+<td>dealer_bank_name</td>
+<td>state</td>
+<td>district</td>
+<td>geo_address</td>
+<!-- <td>ex_sno</td> -->
+<td>email_id</td>
+<td>dealer_acc_no</td>
+<!-- <td>login_type</td> -->
+<td>mobile_no</td>
+<td>post</td>
+<!-- <td>dealer_website</td> -->
+<td>image</td>
+<td>pincode</td>
+<td>category</td>
+<!-- <td>dealer_ifscode</td> -->
+<td>address</td>
+<td>dealer_branch</td>
+<!-- <td>longtitude</td> -->
+<!-- <td>latitude</td> -->
+<!-- <td>taluk</td> -->
+<!-- <td>dealer_license_no</td> -->
+<td>Action</td>
+</tr>
+</thead>
+<tbody >
+<tr dir-paginate="deal in dealer | filter:searchTxt | itemsPerPage: items" >
+<!-- <td>{{deal.userid}}</td> -->
+<td>{{deal.name}}</td>
+<td>{{deal.dealership_name}}</td>
+<!-- <td>{{deal.credit_amt}}</td> -->
+<td>{{deal.dealership_type}}</td>
+<td>{{deal.pan_no}}</td>
+<!-- <td>{{deal.dealer_landline}}</td> -->
+<td>{{deal.dealer_bank_name}}</td>
+<td>{{deal.state}}</td>
+<td>{{deal.district}}</td>
+<td>{{deal.geo_address}}</td>
+<!-- <td>{{deal.ex_sno}}</td> -->
+<td>{{deal.email_id}}</td>
+<td>{{deal.dealer_acc_no}}</td>
+<!-- <td>{{deal.login_type}}</td> -->
+<td>{{deal.mobile_no}}</td>
+<td>{{deal.post}}</td>
+<!-- <td>{{deal.dealer_website}}</td> -->
+<td><img ng-src="{{deal.image}}" width="42" height="42"></td>
+<td>{{deal.pincode}}</td>
+<td>{{deal.category}}</td>
+<!-- <td>{{deal.dealer_ifscode}}</td> -->
+<td>{{deal.address}}</td>
+<td>{{deal.dealer_branch}}</td>
+<!-- <td>{{deal.longtitude}}</td> -->
+<!-- <td>{{deal.latitude}}</td> -->
+<!-- <td>{{deal.taluk}}</td> -->
+<!-- <td>{{deal.dealer_license_no}}</td> -->
+<td><a class="btn btn-success" ng-click="accept(deal)">accept</a></td>
+</tr>
+</tbody>
+</table>
+<dir-pagination-controls max-size="8" direction-links="true"
+            boundary-links="true" >
+        </dir-pagination-controls>
+</div>

@@ -53,23 +53,24 @@ app.controller('DealerController',function($scope,DealerService,$location,$rootS
 		})
 	}
 	
-	$scope.accept=function(userid,name,mobile_no){
-		console.log("id"+userid)
-		console.log("name"+name)
-		var user_id=userid;
-	
-		console.log("second id"+user_id)
-		DealerService.accept({"userid":user_id,"active_status":"1"}).then(function(response){
+	$scope.accept=function(deal){
+		console.log("id"+deal.userid)
+		console.log("name"+deal.name)
+		
+		DealerService.accept({"userid":deal.userid,"active_status":"1"}).then(function(response){
 			
-			$location.path('/entrydealerlist')
+			$location.path('/dealerlist')
 		},function(response){
 			if(response.status==401)
 				$location.path('/login')
 			else
 			console.log(response.status)
+			
 		})
 		
-			DealerService.register({"userid":user_id,"name":name,"mobile_no":mobile_no}).then(function(response){
+			DealerService.register({"userid":deal.userid,"name":deal.name,"mobile_no":deal.mobile_no,"active_status":"1","email_id":deal.email_id,
+				"image":deal.image,"dealership_name":deal.dealership_name,"pincode":deal.pincode,"district":deal.district,"pan_no":deal.pan_no,"state":deal.state,"dealership_type":deal.dealership_type,
+				"login_type":deal.login_type,"active_status":"1","geo_address":deal.geo_address,"post":deal.post}).then(function(response){
 			
 			$location.path('/entrydealerlist')
 		},function(response){

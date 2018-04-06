@@ -49,11 +49,9 @@ app.factory('DealerService',function($http){
 	{
 	return $http.get(BASE_URL+"/servlet/dealershiplist")
 	}
-	
 	dealerService.accept=function(accept){
 		return $http.post(BASE_URL +"/servlet/active",accept)
 	}
-	
 	dealerService.register=function(register){
 		return $http.post(BASE_URL +"/servlet/dealerRegistration",register)
 	}

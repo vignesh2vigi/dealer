@@ -62,7 +62,7 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value = "/active", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity <Status> accept(@RequestBody Status details){
+	public ResponseEntity<dealership> accept(@RequestBody Status details){
 		
 		
 		try {
@@ -73,12 +73,12 @@ public class VehicleController {
 			e1.printStackTrace();
 		}
 		
-	
+		dealership dk=new dealership();
 		Gson gson = new Gson();
 		
 		//JSONParser parser = new JSONParser();
 		String valuation = null;
-		Status mk =new Status();
+		/*Status mk =new Status();*/
 		//List<String> masterVariantList = new ArrayList<String>();
 			
 		try {
@@ -86,8 +86,13 @@ public class VehicleController {
 					ccConstants.update,gson.toJson(details));
 				    System.out.println("res====>"+gson.toJson(details));
 		System.out.println("valuation"+valuation);
-				    
-					mk.setStatus(valuation);
+		
+		JSONParser parser = new JSONParser();
+		org.json.simple.JSONObject json = (org.json.simple.JSONObject) parser.parse(valuation);
+		System.out.println("json===>"+json);
+		
+		dk.setRespObj(json);
+					
 			
 		}
 		    catch (Exception e) {
@@ -95,13 +100,12 @@ public class VehicleController {
 			e.printStackTrace();
 		}
 
-		return new ResponseEntity<Status>(mk,HttpStatus.OK);
+		return new ResponseEntity<dealership>(dk,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/dealerRegistration", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<dealership> dealerRegistration(@RequestBody dealership bankModel) {
-		System.out.println("mobile"+bankModel.getMobile_no());
-		System.out.println("user id"+bankModel.getUserid());
+		System.out.println("<===========================controller check========================>");
 		dealership dealerRegLoginObj = vehicleService.accessSignupSheet(bankModel);
 		return new ResponseEntity<dealership>(dealerRegLoginObj,
 				HttpStatus.OK);

@@ -38,7 +38,14 @@ public class dealership {
 	private String pan_no;
 	private String dealer_acc_no;
 	private String dealer_branch;
-	
+	private String geo_address;
+	public String getGeo_address() {
+		return geo_address;
+	}
+	public void setGeo_address(String geo_address) {
+		this.geo_address = geo_address;
+	}
+
 	private String dealer_bank_name;
 	private String dealer_ifscode;
 	private String dealer_vehi_sold;
@@ -46,13 +53,9 @@ public class dealership {
 	private String image;
 	private String no_dealer;
 	private String credit_amt;
-	
 	private int active_status;
 	private String status;
 	private org.json.simple.JSONObject  respObj = new org.json.simple.JSONObject();
-	
-	
-	
 	
 	public org.json.simple.JSONObject getRespObj() {
 		return respObj;
@@ -60,6 +63,7 @@ public class dealership {
 	public void setRespObj(org.json.simple.JSONObject respObj) {
 		this.respObj = respObj;
 	}
+	
 	public String getStatus() {
 		return status;
 	}
